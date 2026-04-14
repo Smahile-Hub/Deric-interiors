@@ -1,0 +1,46 @@
+.wrap {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 8rem 1.5rem 4rem;
+}
+
+.card {
+  display: grid;
+  gap: 1rem;
+  width: min(42rem, 100%);
+  padding: 2.5rem;
+  text-align: center;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 32px 56px rgba(30, 23, 18, 0.08);
+}
+
+.card p {
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(46, 37, 30, 0.6);
+}
+
+.card h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 4.8rem);
+  line-height: 0.95;
+}
+
+.card span {
+  color: rgba(46, 37, 30, 0.72);
+  line-height: 1.8;
+}
+
+.card a {
+  justify-self: center;
+  padding: 0.95rem 1.4rem;
+  border-radius: 999px;
+  background: #1a1714;
+  color: #fff5ed;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.9rem;
+}

@@ -1,0 +1,120 @@
+{
+  "id": "site_settings",
+  "label": "Site Settings",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Brand": {
+      "site_title": {
+        "type": "Text",
+        "config": {
+          "label": "Site title"
+        }
+      },
+      "site_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Site description",
+          "single": "paragraph",
+          "allowTargetBlank": true
+        }
+      },
+      "social_image": {
+        "type": "Image",
+        "config": {
+          "label": "Social share image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      }
+    },
+    "Navigation": {
+      "navigation_items": {
+        "type": "Group",
+        "config": {
+          "label": "Navigation items",
+          "fields": {
+            "label": {
+              "type": "Text",
+              "config": {
+                "label": "Label"
+              }
+            },
+            "link": {
+              "type": "Link",
+              "config": {
+                "label": "Link",
+                "select": null,
+                "allowTargetBlank": true
+              }
+            }
+          }
+        }
+      },
+      "primary_cta_label": {
+        "type": "Text",
+        "config": {
+          "label": "Primary CTA label"
+        }
+      },
+      "primary_cta_link": {
+        "type": "Link",
+        "config": {
+          "label": "Primary CTA link",
+          "select": null,
+          "allowTargetBlank": true
+        }
+      }
+    },
+    "Footer": {
+      "footer_blurb": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Footer blurb",
+          "single": "paragraph",
+          "allowTargetBlank": true
+        }
+      },
+      "footer_location": {
+        "type": "Text",
+        "config": {
+          "label": "Footer location"
+        }
+      },
+      "footer_email": {
+        "type": "Text",
+        "config": {
+          "label": "Footer email"
+        }
+      },
+      "footer_phone": {
+        "type": "Text",
+        "config": {
+          "label": "Footer phone"
+        }
+      }
+    },
+    "SEO": {
+      "seo_title": {
+        "type": "Text",
+        "config": {
+          "label": "Default SEO title"
+        }
+      },
+      "seo_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Default SEO description",
+          "single": "paragraph",
+          "allowTargetBlank": true
+        }
+      },
+      "seo_keywords": {
+        "type": "Text",
+        "config": {
+          "label": "Default SEO keywords"
+        }
+      }
+    }
+  }
+}

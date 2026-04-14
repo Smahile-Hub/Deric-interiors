@@ -1,0 +1,250 @@
+{
+  "id": "shop_page",
+  "label": "Shop Page",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "SEO": {
+      "seo_title": {
+        "type": "Text",
+        "config": {
+          "label": "SEO title"
+        }
+      },
+      "seo_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "SEO description",
+          "single": "paragraph",
+          "allowTargetBlank": true
+        }
+      },
+      "seo_keywords": {
+        "type": "Text",
+        "config": {
+          "label": "SEO keywords"
+        }
+      }
+    },
+    "Hero": {
+      "hero_eyebrow": {
+        "type": "Text",
+        "config": {
+          "label": "Hero eyebrow"
+        }
+      },
+      "hero_title": {
+        "type": "Text",
+        "config": {
+          "label": "Hero title"
+        }
+      },
+      "hero_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Hero description",
+          "single": "paragraph",
+          "allowTargetBlank": true
+        }
+      },
+      "hero_background_image": {
+        "type": "Image",
+        "config": {
+          "label": "Hero background image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "hero_overlay_start": {
+        "type": "Color",
+        "config": {
+          "label": "Hero overlay start"
+        }
+      },
+      "hero_overlay_end": {
+        "type": "Color",
+        "config": {
+          "label": "Hero overlay end"
+        }
+      }
+    },
+    "Intro": {
+      "intro_title": {
+        "type": "Text",
+        "config": {
+          "label": "Intro title"
+        }
+      },
+      "intro_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Intro description",
+          "single": "paragraph",
+          "allowTargetBlank": true
+        }
+      },
+      "intro_background_color": {
+        "type": "Color",
+        "config": {
+          "label": "Intro background color"
+        }
+      }
+    },
+    "Featured Product": {
+      "featured_product_category": {
+        "type": "Text",
+        "config": {
+          "label": "Featured product category"
+        }
+      },
+      "featured_product_title": {
+        "type": "Text",
+        "config": {
+          "label": "Featured product title"
+        }
+      },
+      "featured_product_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Featured product description",
+          "single": "paragraph",
+          "allowTargetBlank": true
+        }
+      },
+      "featured_product_price": {
+        "type": "Text",
+        "config": {
+          "label": "Featured product price"
+        }
+      },
+      "featured_product_image": {
+        "type": "Image",
+        "config": {
+          "label": "Featured product image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "featured_product_cta_label": {
+        "type": "Text",
+        "config": {
+          "label": "Featured product CTA label"
+        }
+      },
+      "featured_product_cta_link": {
+        "type": "Link",
+        "config": {
+          "label": "Featured product CTA link",
+          "select": null,
+          "allowTargetBlank": true
+        }
+      },
+      "featured_product_accent_color": {
+        "type": "Color",
+        "config": {
+          "label": "Featured product accent color"
+        }
+      }
+    },
+    "Collection": {
+      "product_items": {
+        "type": "Group",
+        "config": {
+          "label": "Product items",
+          "fields": {
+            "category": {
+              "type": "Text",
+              "config": {
+                "label": "Category"
+              }
+            },
+            "title": {
+              "type": "Text",
+              "config": {
+                "label": "Title"
+              }
+            },
+            "description": {
+              "type": "StructuredText",
+              "config": {
+                "label": "Description",
+                "single": "paragraph",
+                "allowTargetBlank": true
+              }
+            },
+            "price": {
+              "type": "Text",
+              "config": {
+                "label": "Price"
+              }
+            },
+            "image": {
+              "type": "Image",
+              "config": {
+                "label": "Image",
+                "constraint": {},
+                "thumbnails": []
+              }
+            },
+            "cta_label": {
+              "type": "Text",
+              "config": {
+                "label": "CTA label"
+              }
+            },
+            "cta_link": {
+              "type": "Link",
+              "config": {
+                "label": "CTA link",
+                "select": null,
+                "allowTargetBlank": true
+              }
+            },
+            "accent_color": {
+              "type": "Color",
+              "config": {
+                "label": "Accent color"
+              }
+            }
+          }
+        }
+      }
+    },
+    "CTA": {
+      "cta_title": {
+        "type": "Text",
+        "config": {
+          "label": "CTA title"
+        }
+      },
+      "cta_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "CTA description",
+          "single": "paragraph",
+          "allowTargetBlank": true
+        }
+      },
+      "cta_button_label": {
+        "type": "Text",
+        "config": {
+          "label": "CTA button label"
+        }
+      },
+      "cta_button_link": {
+        "type": "Link",
+        "config": {
+          "label": "CTA button link",
+          "select": null,
+          "allowTargetBlank": true
+        }
+      },
+      "cta_background_color": {
+        "type": "Color",
+        "config": {
+          "label": "CTA background color"
+        }
+      }
+    }
+  }
+}

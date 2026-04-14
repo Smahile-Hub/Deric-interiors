@@ -1,0 +1,271 @@
+.page {
+  background: #131313;
+  padding: 192px 0 7rem;
+}
+
+.page :global([data-reveal]) {
+  --stagger-delay: calc(var(--stagger-index, 0) * 110ms);
+  opacity: 0;
+  transform: translate3d(0, 34px, 0);
+  filter: blur(8px);
+  transition:
+    opacity 760ms cubic-bezier(0.16, 1, 0.3, 1) var(--stagger-delay),
+    transform 960ms cubic-bezier(0.16, 1, 0.3, 1) var(--stagger-delay),
+    filter 760ms ease var(--stagger-delay);
+}
+
+.page :global([data-visible="true"]) {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  filter: blur(0);
+}
+
+.shell {
+  width: min(1024px, calc(100vw - 3rem));
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.headerSection {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 55px;
+}
+
+.eyebrow,
+.metaLabel,
+.contactEyebrow {
+  color: #e9c175;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.pageTitle,
+.articleHeading h2,
+.quoteBlock {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+.pageTitle {
+  color: #e5e2e0;
+  font-size: clamp(3rem, 6vw, 3.75rem);
+  line-height: 1.05;
+}
+
+.headerRule {
+  width: 96px;
+  height: 1px;
+  background: rgba(233, 193, 117, 0.4);
+  margin-top: 0.75rem;
+}
+
+.introSection,
+.articleSection {
+  display: grid;
+  grid-template-columns: 277px minmax(0, 1fr);
+  gap: 48px;
+}
+
+.introSection {
+  padding: 0 0 55px;
+  border-bottom: 1px solid rgba(78, 70, 57, 0.1);
+}
+
+.introMeta {
+  padding-top: 0.85rem;
+}
+
+.introBody,
+.articleBody {
+  display: grid;
+}
+
+.introBody {
+  gap: 1rem;
+  max-width: 566px;
+}
+
+.articleSection {
+  padding: 56px 0;
+  border-top: 1px solid rgba(78, 70, 57, 0.1);
+}
+
+.articleHeading h2 {
+  color: #e9c175;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.articleBody {
+  gap: 1.5rem;
+  max-width: 603px;
+}
+
+.introBody p,
+.articleBody p,
+.bulletList li,
+.contactLink {
+  color: #d1c5b4;
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 2;
+}
+
+.bulletList {
+  display: grid;
+  gap: 1rem;
+  padding-left: 1.1rem;
+  margin: 0;
+}
+
+.bulletList li::marker {
+  color: #e9c175;
+}
+
+.imageBreak {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.8fr);
+  gap: 32px;
+  align-items: end;
+  padding: 22px 0;
+}
+
+.imageFrame {
+  position: relative;
+  min-height: 672px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #1c1b1b;
+  box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.4);
+}
+
+.breakImage {
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05) brightness(0.8);
+  transform: scale(1.04);
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.imageBreak[data-visible="true"] .breakImage {
+  transform: scale(1);
+}
+
+.quoteBlock {
+  align-self: end;
+  max-width: 358px;
+  color: #786f6c;
+  font-size: clamp(2rem, 3vw, 2.2rem);
+  line-height: 1.25;
+  padding-bottom: 1rem;
+}
+
+.contactCard {
+  display: grid;
+  gap: 0.5rem;
+  padding: 2rem 2.125rem;
+  border: 1px solid rgba(233, 193, 117, 0.28);
+  border-radius: 12px;
+  background: #1c1b1b;
+  margin-top: 0.25rem;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.contactCard:hover,
+.contactCard:focus-within {
+  transform: translateY(-4px);
+  border-color: rgba(233, 193, 117, 0.42);
+  box-shadow: 0 22px 48px -38px rgba(0, 0, 0, 0.92);
+}
+
+.contactLink {
+  color: #e5e2e0;
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.contactLink:hover,
+.contactLink:focus-visible {
+  color: #f1e8d8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page :global([data-reveal]),
+  .breakImage,
+  .contactCard {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 1080px) {
+  .shell {
+    width: calc(100vw - 2rem);
+    padding: 0 32px;
+  }
+}
+
+@media (max-width: 900px) {
+  .introSection,
+  .articleSection,
+  .imageBreak {
+    grid-template-columns: 1fr;
+  }
+
+  .introMeta,
+  .articleHeading {
+    padding-top: 0;
+  }
+
+  .imageFrame {
+    min-height: 520px;
+  }
+
+  .quoteBlock {
+    max-width: 100%;
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding: 164px 0 5rem;
+  }
+
+  .shell {
+    width: calc(100vw - 1.5rem);
+    padding: 0;
+  }
+
+  .pageTitle {
+    font-size: clamp(2.5rem, 12vw, 3.4rem);
+  }
+
+  .introSection,
+  .articleSection {
+    gap: 1.5rem;
+    padding: 2rem 0;
+  }
+
+  .imageBreak {
+    gap: 1.5rem;
+    padding: 2rem 0;
+  }
+
+  .imageFrame {
+    min-height: 420px;
+  }
+
+  .contactCard {
+    padding: 1.5rem;
+  }
+}

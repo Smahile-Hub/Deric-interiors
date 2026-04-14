@@ -1,0 +1,505 @@
+/* ─── Page background ────────────────────────────────────── */
+.page {
+  background: #131313;
+}
+
+.page :global([data-reveal]) {
+  --stagger-delay: calc(var(--stagger-index, 0) * 110ms);
+  opacity: 0;
+  transform: translate3d(0, 40px, 0);
+  filter: blur(8px);
+  transition:
+    opacity 800ms cubic-bezier(0.16, 1, 0.3, 1) var(--stagger-delay),
+    transform 1000ms cubic-bezier(0.16, 1, 0.3, 1) var(--stagger-delay),
+    filter 800ms ease var(--stagger-delay);
+}
+
+.page :global([data-visible="true"]) {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  filter: blur(0);
+}
+
+/* ─── Shared shell ───────────────────────────────────────── */
+.shell,
+.ctaShell {
+  width: min(1184px, calc(100vw - 3rem));
+  margin: 0 auto;
+}
+
+/* ─── HERO HEADER ────────────────────────────────────────── */
+/* No separate section bg — uses page bg */
+.heroSection {
+  padding: 12rem 0 5rem;
+}
+
+/* Two columns: title (left, bottom-aligned) + desc (right, bottom-aligned) */
+.heroHeader {
+  display: flex;
+  align-items: flex-end;
+  gap: 9.375rem; /* 150px from Figma itemSpacing */
+}
+
+.heroLeft {
+  display: grid;
+  gap: 1rem;
+  flex: 0 0 25rem; /* 400px ≈ Figma 399.47px */
+}
+
+.eyebrow {
+  color: #e9c176;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4.5vw, 3.75rem);
+  font-weight: 400;
+  line-height: 1.0;
+  color: #e5e2e1;
+}
+
+/* Right: description with left border */
+.heroRight {
+  flex: 1;
+  border-left: 1px solid rgba(80, 69, 51, 0.3);
+  padding-left: 1.5rem;
+}
+
+.heroDesc {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: #d1c5b4;
+  line-height: 1.8;
+  max-width: 23rem;
+}
+
+/* ─── TESTIMONIAL ONE ────────────────────────────────────── */
+.t1Section {
+  background: #0e0e0e;
+  padding: 6rem 0 6rem;
+  margin-top: 3rem;
+}
+
+/* 670fr : 465fr with 48px gap = exact Figma widths at 1184px */
+.t1Grid {
+  display: grid;
+  grid-template-columns: 670fr 465fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* ── Quote side ── */
+.quoteBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Decorative oversized opening quote mark — gold at 10% opacity */
+.quoteIconMark {
+  display: block;
+  font-family: Georgia, "Noto Serif", serif;
+  font-size: 8rem;
+  line-height: 1;
+  color: rgba(233, 193, 118, 0.1);
+  pointer-events: none;
+  margin-bottom: -3rem; /* pull quote text visually up */
+}
+
+.quoteText {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  font-weight: 400;
+  line-height: 1.35;
+  color: #e5e2e1;
+  margin: 0 0 3rem;
+}
+
+.quoteAttr {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* 48px gold horizontal rule */
+.attrLine {
+  display: block;
+  flex-shrink: 0;
+  width: 3rem;
+  height: 1px;
+  background: #e9c176;
+}
+
+.attrName {
+  font-family: var(--font-meta); /* Manrope */
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #e9c176;
+  line-height: 1.3;
+}
+
+.attrRole {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #737373;
+  margin-top: 0.125rem;
+}
+
+/* ── Image side ── */
+.t1ImageWrap {
+  position: relative;
+  height: 31.25rem; /* 500px */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+}
+
+.t1ImgGrad {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 50%,
+    rgba(14, 14, 14, 0.45) 100%
+  );
+  border-radius: 8px;
+}
+
+.coverImage {
+  object-fit: cover;
+  transform: scale(1.04);
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.t1ImageWrap[data-visible="true"] .coverImage,
+.t2ImageGroup[data-visible="true"] .coverImage,
+.galleryGrid[data-visible="true"] .coverImage {
+  transform: scale(1);
+}
+
+.t1ImageWrap:hover .coverImage,
+.t2ImageGroup:hover .coverImage,
+.galleryGrid:hover .coverImage {
+  transform: scale(1.05) translateY(-6px);
+}
+
+/* ─── ACCENT TRANSITION ──────────────────────────────────── */
+.accentTransition {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 0;
+}
+
+.accentLine {
+  display: block;
+  width: 1px;
+  height: 8rem; /* 128px */
+  background: linear-gradient(
+    180deg,
+    rgba(233, 193, 118, 0.55) 0%,
+    transparent 100%
+  );
+}
+
+/* ─── TESTIMONIAL TWO ────────────────────────────────────── */
+.t2Section {
+  padding: 2rem 0 5rem;
+}
+
+/* 560px images | 64px gap | 560px card */
+.t2Grid {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+}
+
+/* Two side-by-side images: 272px each, 16px gap, left one staggered down 48px */
+.t2ImageGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  flex: 0 0 35rem; /* 560px */
+  align-items: start;
+}
+
+.t2Img {
+  position: relative;
+  aspect-ratio: 272 / 320;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Left image staggered 48px down to match Figma */
+.t2ImgStagger {
+  margin-top: 3rem;
+}
+
+/* Quote card */
+.t2Card {
+  flex: 0 0 35rem; /* 560px */
+  min-height: 31.25rem; /* 500px */
+  background: #1c1b1b;
+  border-radius: 12px;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.t2Card:hover,
+.t2Card:focus-within {
+  transform: translateY(-5px);
+  box-shadow: 0 28px 56px -40px rgba(0, 0, 0, 0.9);
+}
+
+.t2Quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: #e5e2e1;
+}
+
+.t2Attr {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.t2Name {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #e9c176;
+  letter-spacing: 0.04em;
+}
+
+.t2Role {
+  font-family: var(--font-meta);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #737373;
+}
+
+/* ─── GALLERY GRID ───────────────────────────────────────── */
+.gallerySection {
+  background: #0e0e0e;
+  padding: 5rem 0 0;
+  margin-top: 1rem;
+}
+
+.galleryHeader {
+  margin-bottom: 4rem;
+}
+
+.galleryEyebrow {
+  font-family: var(--font-meta);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: #e9c176;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.galleryTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 400;
+  color: #e5e2e1;
+  line-height: 1.1;
+}
+
+/* 781fr : 403fr = Figma 781.33 : 402.67 */
+.galleryGrid {
+  display: grid;
+  grid-template-columns: 781fr 403fr;
+  height: 50rem; /* 800px */
+  gap: 0;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+}
+
+.galleryLeft {
+  position: relative;
+  overflow: hidden;
+}
+
+.galleryRight {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 0;
+}
+
+.galleryRightImg {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ─── CTA ────────────────────────────────────────────────── */
+.ctaSection {
+  padding: 6rem 0 7rem;
+  text-align: center;
+}
+
+.ctaShell {
+  display: grid;
+  justify-items: center;
+  gap: 0;
+}
+
+.ctaTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-weight: 400;
+  line-height: 1;
+  color: #e5e2e1;
+  margin-bottom: 1.5rem;
+}
+
+/* Thin gold rule below title */
+.ctaRule {
+  display: block;
+  width: 3rem;
+  height: 1px;
+  background: #e9c176;
+  margin-bottom: 2.5rem;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 57px;
+  padding: 0.9rem 2.5rem;
+  border-radius: 4px;
+  background: #f7b51f;
+  color: #694b00;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  box-shadow:
+    0 8px 10px -6px rgba(247, 181, 31, 0.22),
+    0 20px 24px -18px rgba(247, 181, 31, 0.38);
+  transition: transform 160ms ease, filter 160ms ease;
+}
+
+.ctaButton:hover,
+.ctaButton:focus-visible {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page :global([data-reveal]),
+  .coverImage,
+  .t2Card {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 1080px) {
+  .shell,
+  .ctaShell {
+    width: calc(100vw - 2rem);
+  }
+
+  .heroHeader {
+    gap: 4rem;
+  }
+
+  .t1Grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .t1ImageWrap {
+    height: 22rem;
+  }
+
+  .t2Grid {
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .t2ImageGroup,
+  .t2Card {
+    flex: none;
+    width: 100%;
+  }
+
+  .galleryGrid {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .galleryLeft {
+    aspect-ratio: 4 / 3;
+  }
+
+  .galleryRight {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    height: 18rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .shell,
+  .ctaShell {
+    width: calc(100vw - 1.5rem);
+  }
+
+  .heroSection {
+    padding: 8rem 0 3rem;
+  }
+
+  .heroHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .heroLeft {
+    flex: none;
+  }
+
+  .heroRight {
+    border-left: none;
+    border-top: 1px solid rgba(80, 69, 51, 0.3);
+    padding-left: 0;
+    padding-top: 1.5rem;
+  }
+
+  .t2ImageGroup {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .t2ImgStagger {
+    margin-top: 1.5rem;
+  }
+
+  .t2Card {
+    min-height: auto;
+    padding: 2rem;
+  }
+
+  .galleryRight {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    height: 12rem;
+  }
+}

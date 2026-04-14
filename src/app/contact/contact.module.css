@@ -1,0 +1,553 @@
+/* ─── Shared shell ──────────────────────────────────────── */
+.contactRoot {
+  position: relative;
+}
+
+.heroShell,
+.contactShell {
+  width: min(1184px, calc(100vw - 3rem));
+  margin: 0 auto;
+}
+
+/* ─── HERO ──────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 867px;
+  padding: 200px 0 80px;
+  overflow: hidden;
+  background: #0d0e12;
+  display: flex;
+  align-items: center;
+}
+
+.heroBg {
+  object-fit: cover;
+  transform: translateY(var(--hero-image-shift, 0)) scale(var(--hero-image-scale, 1));
+  transform-origin: center center;
+  transition: transform 180ms linear;
+  will-change: transform;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  opacity: var(--hero-overlay-opacity, 1);
+  background:
+    linear-gradient(180deg,
+      rgba(8, 8, 12, 0.18) 0%,
+      rgba(8, 8, 12, 0.52) 38%,
+      rgba(13, 14, 18, 0.9) 100%),
+    linear-gradient(110deg,
+      rgba(0, 0, 0, 0.62) 0%,
+      rgba(20, 14, 10, 0.28) 100%);
+  transition: opacity 180ms linear;
+}
+
+.heroShell {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1.25rem;
+  max-width: 58rem;
+  transform: translateY(var(--hero-shell-shift, 0));
+  opacity: var(--hero-shell-opacity, 1);
+  transition:
+    transform 180ms linear,
+    opacity 180ms linear;
+  will-change: transform, opacity;
+}
+
+.eyebrow {
+  color: #f0ce97;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* "Begin\n\nTransformation" — two lines with breathing room */
+.heroTitle {
+  display: grid;
+  gap: 0.35rem;
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 10vw, 8rem);
+  font-weight: 400;
+  line-height: 0.92;
+  color: #e4e1ea;
+  text-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
+  white-space: pre-line;
+}
+
+.heroTitleTop,
+.heroTitleBottom {
+  display: block;
+}
+
+.heroTitleTop {
+  max-width: 5.2ch;
+}
+
+.heroTitleBottom {
+  max-width: 11.5ch;
+  color: #f3efec;
+  letter-spacing: -0.02em;
+}
+
+.heroDesc {
+  max-width: 36rem;
+  color: #d4c4ad;
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.contactRoot :global([data-reveal]) {
+  --stagger-delay: calc(var(--stagger-index, 0) * 110ms);
+  opacity: 0;
+  transform: translate3d(0, 38px, 0);
+  filter: blur(8px);
+  transition:
+    opacity 800ms cubic-bezier(0.16, 1, 0.3, 1) var(--stagger-delay),
+    transform 1000ms cubic-bezier(0.16, 1, 0.3, 1) var(--stagger-delay),
+    filter 800ms ease var(--stagger-delay);
+}
+
+.contactRoot :global([data-visible="true"]) {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  filter: blur(0);
+}
+
+/* ─── BOOKING & CONTACT ─────────────────────────────────── */
+.contactSection {
+  background: #12131a;
+  padding: 6rem 0 7rem;
+  border-top: 1px solid rgba(80, 69, 51, 0.18);
+}
+
+/* 632px form | rest info panel */
+.contactGrid {
+  display: grid;
+  grid-template-columns: 632px 1fr;
+  gap: 4.5rem;
+  align-items: start;
+}
+
+/* ── Form column ── */
+.formColumn {
+  display: grid;
+  gap: 3rem;
+}
+
+.formHeader {
+  display: grid;
+  gap: 1rem;
+}
+
+.formTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #f0ce97;
+  line-height: 1.1;
+}
+
+/* 96px gold underline beneath form title */
+.formRule {
+  display: block;
+  width: 96px;
+  height: 1px;
+  background: #f7b51f;
+}
+
+/* ── Form ── */
+.form {
+  display: grid;
+  gap: 3rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.field {
+  display: grid;
+  gap: 1rem;
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #d4c4ad;
+  text-transform: uppercase;
+}
+
+.input {
+  width: 100%;
+  height: 3.5rem;
+  background: #0d0e13;
+  border: 1px solid rgba(80, 69, 51, 0.3);
+  padding: 0 0.875rem;
+  color: #e4e1ea;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  outline: none;
+  transition: border-color 160ms ease;
+  border-radius: 0;
+}
+
+.input:focus {
+  border-color: rgba(240, 206, 151, 0.45);
+}
+
+.input::placeholder {
+  color: #3f3f46;
+  font-weight: 300;
+}
+
+/* Date input — align text */
+.inputDate {
+  color-scheme: dark;
+}
+
+/* Textarea */
+.textarea {
+  height: auto;
+  padding: 0.875rem;
+  resize: vertical;
+  min-height: 7.5rem;
+  line-height: 1.7;
+}
+
+/* Custom select wrapper */
+.selectWrap {
+  position: relative;
+}
+
+.select {
+  width: 100%;
+  height: 3.5rem;
+  background: #0d0e13;
+  border: 1px solid rgba(80, 69, 51, 0.3);
+  padding: 0 2.5rem 0 0.875rem;
+  color: #e4e1ea;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 160ms ease;
+}
+
+.select:focus {
+  border-color: rgba(240, 206, 151, 0.45);
+}
+
+.select option {
+  background: #1a1b21;
+  color: #e4e1ea;
+}
+
+.select option:disabled {
+  color: #3f3f46;
+}
+
+.selectArrow {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  color: #6b7280;
+  font-size: 1.1rem;
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* Submit button */
+.submitBtn {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 57px;
+  padding: 0.9rem 2.5rem;
+  background: #f7b51f;
+  color: #694b00;
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  box-shadow:
+    0 8px 10px -6px rgba(247, 181, 31, 0.22),
+    0 20px 24px -18px rgba(247, 181, 31, 0.38);
+  transition: transform 160ms ease, filter 160ms ease, opacity 160ms ease;
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Success state */
+.successState {
+  display: grid;
+  gap: 1.25rem;
+  padding: 3rem;
+  background: #1a1b21;
+  border: 1px solid rgba(240, 206, 151, 0.2);
+  border-radius: 4px;
+  box-shadow: 0 22px 50px -38px rgba(0, 0, 0, 0.9);
+}
+
+.successIcon {
+  color: #f0ce97;
+  font-size: 1.25rem;
+}
+
+.successTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #e4e1ea;
+}
+
+.successBody {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: #d4c4ad;
+  line-height: 1.75;
+}
+
+.resetBtn {
+  justify-self: start;
+  background: none;
+  border: none;
+  color: #f0ce97;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 150ms ease;
+}
+
+.resetBtn:hover {
+  opacity: 0.75;
+}
+
+/* ── Info column ── */
+.infoColumn {
+  display: grid;
+  gap: 1.5rem;
+}
+
+/* Contact card */
+.contactCard {
+  padding: 2rem;
+  background: #1a1b21;
+  border: 1px solid rgba(240, 206, 151, 0.18);
+  border-radius: 4px;
+  display: grid;
+  gap: 1rem;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.contactCard:hover,
+.contactCard:focus-within {
+  transform: translateY(-4px);
+  border-color: rgba(240, 206, 151, 0.3);
+  box-shadow: 0 24px 54px -38px rgba(0, 0, 0, 0.92);
+}
+
+.cardEyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f0ce97;
+  opacity: 0.75;
+}
+
+.cardAddress {
+  display: grid;
+  gap: 0.25rem;
+  font-style: normal;
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: #d4c4ad;
+  line-height: 1.6;
+}
+
+.cardContacts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cardLink {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #f0ce97;
+  transition: opacity 150ms ease;
+}
+
+.cardLink:hover {
+  opacity: 0.7;
+}
+
+/* Office image */
+.officeImgWrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.coverImage {
+  object-fit: cover;
+  transform: scale(1.04);
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.infoColumn[data-visible="true"] .coverImage,
+.mapSection[data-visible="true"] .mapFrame {
+  transform: none;
+}
+
+/* Location list */
+.locationList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(80, 69, 51, 0.14);
+}
+
+.locationItem {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.locationCity {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #f0ce97;
+  text-transform: uppercase;
+}
+
+.locationAddr {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: #d4c4ad;
+  line-height: 1.6;
+}
+
+.locationPhone {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #b1a18d;
+  transition: color 150ms ease;
+}
+
+.locationPhone:hover {
+  color: #f0ce97;
+}
+
+/* ─── MAP ────────────────────────────────────────────────── */
+.mapSection {
+  position: relative;
+  height: 420px;
+  overflow: hidden;
+  border-top: 1px solid rgba(80, 69, 51, 0.14);
+}
+
+.mapFrame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  /* Invert + hue-rotate for a dark map effect */
+  filter: invert(90%) hue-rotate(180deg) saturate(0.55) brightness(0.88);
+  transform: scale(1.03);
+  transition: transform 1200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 1080px) {
+  .heroShell,
+  .contactShell {
+    width: calc(100vw - 2rem);
+  }
+
+  .contactGrid {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+
+  .formRow {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero {
+    min-height: auto;
+    padding: 160px 0 60px;
+  }
+
+  .heroTitle {
+    gap: 0.2rem;
+    white-space: normal;
+  }
+
+  .heroShell,
+  .contactShell {
+    width: calc(100vw - 1.5rem);
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .locationList {
+    grid-template-columns: 1fr;
+  }
+
+  .mapSection {
+    height: 300px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroBg,
+  .heroOverlay,
+  .heroShell,
+  .coverImage,
+  .mapFrame,
+  .contactRoot :global([data-reveal]) {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+}

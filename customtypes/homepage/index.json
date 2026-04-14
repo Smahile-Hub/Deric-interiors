@@ -1,0 +1,472 @@
+{
+  "id": "homepage",
+  "label": "Homepage",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "SEO": {
+      "seo_title": {
+        "type": "Text",
+        "config": {
+          "label": "SEO title",
+          "placeholder": "Luxury Interior Design for Elevated Living"
+        }
+      },
+      "seo_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "SEO description",
+          "single": "paragraph",
+          "allowTargetBlank": true
+        }
+      },
+      "seo_keywords": {
+        "type": "Text",
+        "config": {
+          "label": "SEO keywords",
+          "placeholder": "luxury interior design, bespoke interiors, residential interiors"
+        }
+      }
+    },
+    "Hero": {
+      "hero_eyebrow": {
+        "type": "Text",
+        "config": {
+          "label": "Eyebrow"
+        }
+      },
+      "hero_title": {
+        "type": "Text",
+        "config": {
+          "label": "Hero title"
+        }
+      },
+      "hero_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Hero description",
+          "single": "paragraph",
+          "allowTargetBlank": true
+        }
+      },
+      "hero_background_image": {
+        "type": "Image",
+        "config": {
+          "label": "Hero background image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "hero_overlay_start": {
+        "type": "Color",
+        "config": {
+          "label": "Hero overlay start"
+        }
+      },
+      "hero_overlay_end": {
+        "type": "Color",
+        "config": {
+          "label": "Hero overlay end"
+        }
+      },
+      "hero_primary_cta_label": {
+        "type": "Text",
+        "config": {
+          "label": "Primary CTA label"
+        }
+      },
+      "hero_primary_cta_link": {
+        "type": "Link",
+        "config": {
+          "label": "Primary CTA link",
+          "select": null,
+          "allowTargetBlank": true
+        }
+      },
+      "hero_secondary_cta_label": {
+        "type": "Text",
+        "config": {
+          "label": "Secondary CTA label"
+        }
+      },
+      "hero_secondary_cta_link": {
+        "type": "Link",
+        "config": {
+          "label": "Secondary CTA link",
+          "select": null,
+          "allowTargetBlank": true
+        }
+      }
+    },
+    "About": {
+      "about_eyebrow": {
+        "type": "Text",
+        "config": {
+          "label": "About eyebrow"
+        }
+      },
+      "about_title": {
+        "type": "Text",
+        "config": {
+          "label": "About title"
+        }
+      },
+      "about_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "About description",
+          "single": "paragraph",
+          "allowTargetBlank": true
+        }
+      },
+      "about_image": {
+        "type": "Image",
+        "config": {
+          "label": "About image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "about_years_value": {
+        "type": "Text",
+        "config": {
+          "label": "Years value"
+        }
+      },
+      "about_years_label": {
+        "type": "Text",
+        "config": {
+          "label": "Years label"
+        }
+      },
+      "about_feature_one_title": {
+        "type": "Text",
+        "config": {
+          "label": "Feature one title"
+        }
+      },
+      "about_feature_one_body": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Feature one body",
+          "single": "paragraph",
+          "allowTargetBlank": true
+        }
+      },
+      "about_feature_two_title": {
+        "type": "Text",
+        "config": {
+          "label": "Feature two title"
+        }
+      },
+      "about_feature_two_body": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Feature two body",
+          "single": "paragraph",
+          "allowTargetBlank": true
+        }
+      },
+      "about_background_color": {
+        "type": "Color",
+        "config": {
+          "label": "About background color"
+        }
+      },
+      "about_panel_color": {
+        "type": "Color",
+        "config": {
+          "label": "About stat panel color"
+        }
+      }
+    },
+    "Services": {
+      "services_title": {
+        "type": "Text",
+        "config": {
+          "label": "Services title"
+        }
+      },
+      "services_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Services description",
+          "single": "paragraph",
+          "allowTargetBlank": true
+        }
+      },
+      "services_background_color": {
+        "type": "Color",
+        "config": {
+          "label": "Services background color"
+        }
+      },
+      "service_items": {
+        "type": "Group",
+        "config": {
+          "label": "Service items",
+          "fields": {
+            "title": {
+              "type": "Text",
+              "config": {
+                "label": "Title"
+              }
+            },
+            "subtitle": {
+              "type": "Text",
+              "config": {
+                "label": "Subtitle"
+              }
+            },
+            "image": {
+              "type": "Image",
+              "config": {
+                "label": "Image",
+                "constraint": {},
+                "thumbnails": []
+              }
+            },
+            "overlay_color": {
+              "type": "Color",
+              "config": {
+                "label": "Overlay color"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Portfolio": {
+      "portfolio_eyebrow": {
+        "type": "Text",
+        "config": {
+          "label": "Portfolio eyebrow"
+        }
+      },
+      "portfolio_title": {
+        "type": "Text",
+        "config": {
+          "label": "Portfolio title"
+        }
+      },
+      "portfolio_featured_category": {
+        "type": "Text",
+        "config": {
+          "label": "Featured category"
+        }
+      },
+      "portfolio_featured_title": {
+        "type": "Text",
+        "config": {
+          "label": "Featured title"
+        }
+      },
+      "portfolio_featured_summary": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Featured summary",
+          "single": "paragraph",
+          "allowTargetBlank": true
+        }
+      },
+      "portfolio_featured_image": {
+        "type": "Image",
+        "config": {
+          "label": "Featured image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "portfolio_featured_link_label": {
+        "type": "Text",
+        "config": {
+          "label": "Featured link label"
+        }
+      },
+      "portfolio_featured_link": {
+        "type": "Link",
+        "config": {
+          "label": "Featured link",
+          "select": null,
+          "allowTargetBlank": true
+        }
+      },
+      "portfolio_secondary_projects": {
+        "type": "Group",
+        "config": {
+          "label": "Secondary projects",
+          "fields": {
+            "category": {
+              "type": "Text",
+              "config": {
+                "label": "Category"
+              }
+            },
+            "title": {
+              "type": "Text",
+              "config": {
+                "label": "Title"
+              }
+            },
+            "summary": {
+              "type": "StructuredText",
+              "config": {
+                "label": "Summary",
+                "single": "paragraph",
+                "allowTargetBlank": true
+              }
+            },
+            "image": {
+              "type": "Image",
+              "config": {
+                "label": "Image",
+                "constraint": {},
+                "thumbnails": []
+              }
+            },
+            "link_label": {
+              "type": "Text",
+              "config": {
+                "label": "Link label"
+              }
+            },
+            "link": {
+              "type": "Link",
+              "config": {
+                "label": "Link",
+                "select": null,
+                "allowTargetBlank": true
+              }
+            }
+          }
+        }
+      },
+      "portfolio_background_color": {
+        "type": "Color",
+        "config": {
+          "label": "Portfolio background color"
+        }
+      }
+    },
+    "Mission": {
+      "mission_title_line_one": {
+        "type": "Text",
+        "config": {
+          "label": "Mission title line one"
+        }
+      },
+      "mission_title_line_two": {
+        "type": "Text",
+        "config": {
+          "label": "Mission title line two"
+        }
+      },
+      "mission_background_color": {
+        "type": "Color",
+        "config": {
+          "label": "Mission background color"
+        }
+      },
+      "mission_pillars": {
+        "type": "Group",
+        "config": {
+          "label": "Mission pillars",
+          "fields": {
+            "title": {
+              "type": "Text",
+              "config": {
+                "label": "Title"
+              }
+            },
+            "body": {
+              "type": "StructuredText",
+              "config": {
+                "label": "Body",
+                "single": "paragraph",
+                "allowTargetBlank": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "Testimonials": {
+      "testimonials_title": {
+        "type": "Text",
+        "config": {
+          "label": "Testimonials title"
+        }
+      },
+      "testimonials_background_color": {
+        "type": "Color",
+        "config": {
+          "label": "Testimonials background color"
+        }
+      },
+      "testimonial_items": {
+        "type": "Group",
+        "config": {
+          "label": "Testimonial items",
+          "fields": {
+            "quote": {
+              "type": "StructuredText",
+              "config": {
+                "label": "Quote",
+                "single": "paragraph",
+                "allowTargetBlank": true
+              }
+            },
+            "author": {
+              "type": "Text",
+              "config": {
+                "label": "Author"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Final CTA": {
+      "final_cta_title": {
+        "type": "Text",
+        "config": {
+          "label": "Final CTA title"
+        }
+      },
+      "final_cta_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Final CTA description",
+          "single": "paragraph",
+          "allowTargetBlank": true
+        }
+      },
+      "final_cta_button_label": {
+        "type": "Text",
+        "config": {
+          "label": "Final CTA button label"
+        }
+      },
+      "final_cta_button_link": {
+        "type": "Link",
+        "config": {
+          "label": "Final CTA button link",
+          "select": null,
+          "allowTargetBlank": true
+        }
+      },
+      "final_cta_background_color": {
+        "type": "Color",
+        "config": {
+          "label": "Final CTA background color"
+        }
+      },
+      "final_cta_accent_color": {
+        "type": "Color",
+        "config": {
+          "label": "Final CTA accent color"
+        }
+      }
+    }
+  }
+}
