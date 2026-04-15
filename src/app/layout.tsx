@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope, Noto_Serif, Plus_Jakarta_Sans } from "next/font/google";
 
-import { SiteFooter } from "@/components/site/SiteFooter";
-import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteChrome } from "@/components/site/SiteChrome";
 import { TransitionProvider } from "@/components/site/TransitionProvider";
 import { siteUrl } from "@/lib/metadata";
 import { getSiteSettings } from "@/lib/site-content";
@@ -49,9 +48,7 @@ export default async function RootLayout({
     >
       <body>
         <TransitionProvider>
-          <SiteHeader settings={settings} />
-          <main>{children}</main>
-          <SiteFooter settings={settings} />
+          <SiteChrome settings={settings}>{children}</SiteChrome>
         </TransitionProvider>
       </body>
     </html>

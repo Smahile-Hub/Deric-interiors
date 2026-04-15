@@ -1,23 +1,10 @@
 "use client";
 
 import { useState } from "react";
+
+import type { ContactPageContent } from "@/types/site";
+
 import styles from "./contact.module.css";
-
-const PROJECT_TYPES = [
-  "Residential Design",
-  "Commercial Fitout",
-  "Workplace",
-  "Hospitality",
-  "Heritage Renovation",
-];
-
-const INVESTMENT_RANGES = [
-  "₦1M – ₦5M",
-  "₦5M – ₦20M",
-  "₦20M – ₦50M",
-  "₦50M – ₦150M",
-  "₦150M+",
-];
 
 type Fields = {
   name: string;
@@ -39,7 +26,11 @@ const EMPTY: Fields = {
   message: "",
 };
 
-export function ContactForm() {
+type ContactFormProps = {
+  content: ContactPageContent["form"];
+};
+
+export function ContactForm({ content }: ContactFormProps) {
   const [fields, setFields] = useState<Fields>(EMPTY);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -47,7 +38,7 @@ export function ContactForm() {
   function handleChange(
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    >,
   ) {
     setFields((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
@@ -55,8 +46,7 @@ export function ContactForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    // TODO: wire up to a mail service (Resend, EmailJS, etc.)
-    await new Promise((r) => setTimeout(r, 800));
+    await new Promise((resolve) => setTimeout(resolve, 800));
     setLoading(false);
     setSubmitted(true);
   }
@@ -64,11 +54,10 @@ export function ContactForm() {
   if (submitted) {
     return (
       <div className={styles.successState} role="status">
-        <span className={styles.successIcon}>✦</span>
-        <h3 className={styles.successTitle}>Request received</h3>
+        <span className={styles.successIcon}>{content.successIcon}</span>
+        <h3 className={styles.successTitle}>{content.successTitle}</h3>
         <p className={styles.successBody}>
-          Thank you, {fields.name || "there"}. One of our design consultants
-          will be in touch within 24 hours.
+          {content.successBody.replace("{name}", fields.name || "there")}
         </p>
         <button
           className={styles.resetBtn}
@@ -77,7 +66,7 @@ export function ContactForm() {
             setSubmitted(false);
           }}
         >
-          Send another enquiry
+          {content.resetButtonLabel}
         </button>
       </div>
     );
@@ -85,11 +74,10 @@ export function ContactForm() {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
-      {/* Row 1 */}
       <div className={styles.formRow}>
         <div className={styles.field}>
           <label className={styles.label} htmlFor="name">
-            Full Name
+            {content.fields.nameLabel}
           </label>
           <input
             id="name"
@@ -98,13 +86,13 @@ export function ContactForm() {
             required
             value={fields.name}
             onChange={handleChange}
-            placeholder="e.g. Amara Okafor"
+            placeholder={content.fields.namePlaceholder}
             className={styles.input}
           />
         </div>
         <div className={styles.field}>
           <label className={styles.label} htmlFor="email">
-            Private Email
+            {content.fields.emailLabel}
           </label>
           <input
             id="email"
@@ -113,17 +101,16 @@ export function ContactForm() {
             required
             value={fields.email}
             onChange={handleChange}
-            placeholder="you@example.com"
+            placeholder={content.fields.emailPlaceholder}
             className={styles.input}
           />
         </div>
       </div>
 
-      {/* Row 2 */}
       <div className={styles.formRow}>
         <div className={styles.field}>
           <label className={styles.label} htmlFor="projectType">
-            Project Type
+            {content.fields.projectTypeLabel}
           </label>
           <div className={styles.selectWrap}>
             <select
@@ -135,11 +122,11 @@ export function ContactForm() {
               className={styles.select}
             >
               <option value="" disabled>
-                Select type
+                {content.fields.projectTypePlaceholder}
               </option>
-              {PROJECT_TYPES.map((t) => (
-                <option key={t} value={t}>
-                  {t}
+              {content.fields.projectTypeOptions.map((item) => (
+                <option key={item} value={item}>
+                  {item}
                 </option>
               ))}
             </select>
@@ -150,7 +137,7 @@ export function ContactForm() {
         </div>
         <div className={styles.field}>
           <label className={styles.label} htmlFor="investmentRange">
-            Investment Range
+            {content.fields.investmentRangeLabel}
           </label>
           <div className={styles.selectWrap}>
             <select
@@ -162,11 +149,11 @@ export function ContactForm() {
               className={styles.select}
             >
               <option value="" disabled>
-                Select range
+                {content.fields.investmentRangePlaceholder}
               </option>
-              {INVESTMENT_RANGES.map((r) => (
-                <option key={r} value={r}>
-                  {r}
+              {content.fields.investmentRangeOptions.map((item) => (
+                <option key={item} value={item}>
+                  {item}
                 </option>
               ))}
             </select>
@@ -177,11 +164,10 @@ export function ContactForm() {
         </div>
       </div>
 
-      {/* Row 3 */}
       <div className={styles.formRow}>
         <div className={styles.field}>
           <label className={styles.label} htmlFor="preferredDate">
-            Preferred Date
+            {content.fields.preferredDateLabel}
           </label>
           <input
             id="preferredDate"
@@ -194,7 +180,7 @@ export function ContactForm() {
         </div>
         <div className={styles.field}>
           <label className={styles.label} htmlFor="phone">
-            Phone Number
+            {content.fields.phoneLabel}
           </label>
           <input
             id="phone"
@@ -202,16 +188,15 @@ export function ContactForm() {
             type="tel"
             value={fields.phone}
             onChange={handleChange}
-            placeholder="+234 xxx xxx xxxx"
+            placeholder={content.fields.phonePlaceholder}
             className={styles.input}
           />
         </div>
       </div>
 
-      {/* Row 4 — full width */}
       <div className={styles.field}>
         <label className={styles.label} htmlFor="message">
-          Your Vision
+          {content.fields.messageLabel}
         </label>
         <textarea
           id="message"
@@ -219,13 +204,13 @@ export function ContactForm() {
           rows={5}
           value={fields.message}
           onChange={handleChange}
-          placeholder="Describe the space, the feeling you want to live in, any inspiration you have…"
+          placeholder={content.fields.messagePlaceholder}
           className={`${styles.input} ${styles.textarea}`}
         />
       </div>
 
       <button type="submit" disabled={loading} className={styles.submitBtn}>
-        {loading ? "Sending…" : "Request Consultation"}
+        {loading ? content.submitLoadingLabel : content.submitIdleLabel}
       </button>
     </form>
   );

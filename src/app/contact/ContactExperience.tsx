@@ -6,20 +6,13 @@ import type { CSSProperties } from "react";
 
 import { ContactForm } from "./ContactForm";
 import styles from "./contact.module.css";
-
-type Location = {
-  city: string;
-  address: string;
-  state: string;
-  phone: string;
-  whatsapp: string;
-};
+import type { ContactPageContent } from "@/types/site";
 
 type ContactExperienceProps = {
-  locations: Location[];
+  page: ContactPageContent;
 };
 
-export function ContactExperience({ locations }: ContactExperienceProps) {
+export function ContactExperience({ page }: ContactExperienceProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [scrollY, setScrollY] = useState(0);
 
@@ -92,8 +85,8 @@ export function ContactExperience({ locations }: ContactExperienceProps) {
     <div ref={rootRef} className={styles.contactRoot}>
       <section className={styles.hero} style={heroStyle}>
         <Image
-          src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?auto=format&fit=crop&w=1800&q=80"
-          alt="Luxury penthouse interior - warm tones and city views"
+          src={page.hero.backgroundImage.url}
+          alt={page.hero.backgroundImage.alt}
           fill
           priority
           sizes="100vw"
@@ -103,17 +96,13 @@ export function ContactExperience({ locations }: ContactExperienceProps) {
 
         <div className={styles.heroShell}>
           <p className={styles.eyebrow} data-reveal>
-            Curated Experiences
+            {page.hero.eyebrow}
           </p>
           <h1 className={styles.heroTitle} data-reveal>
-            <span className={styles.heroTitleTop}>Begin</span>
-            <span className={styles.heroTitleBottom}>Transformation</span>
+            <span className={styles.heroTitleTop}>{page.hero.titleTop}</span>
+            <span className={styles.heroTitleBottom}>{page.hero.titleBottom}</span>
           </h1>
-          <p className={styles.heroDesc} data-reveal>
-            Every masterpiece begins with a conversation. Let us redefine the
-            boundaries of your sanctuary through the lens of architectural depth
-            and bespoke luxury.
-          </p>
+          <p className={styles.heroDesc} data-reveal>{page.hero.description}</p>
         </div>
       </section>
 
@@ -122,38 +111,38 @@ export function ContactExperience({ locations }: ContactExperienceProps) {
           <div className={styles.contactGrid}>
             <div className={styles.formColumn} data-reveal>
               <div className={styles.formHeader}>
-                <h2 className={styles.formTitle}>The Initial Consultation</h2>
+                <h2 className={styles.formTitle}>{page.form.title}</h2>
                 <span className={styles.formRule} aria-hidden="true" />
               </div>
-              <ContactForm />
+              <ContactForm content={page.form} />
             </div>
 
             <aside className={styles.infoColumn} data-reveal>
               <div className={styles.contactCard}>
-                <p className={styles.cardEyebrow}>Dric Interior, Lagos</p>
+                <p className={styles.cardEyebrow}>{page.infoCard.eyebrow}</p>
                 <address className={styles.cardAddress}>
-                  <span>6ix Unity Road, Ikeja</span>
-                  <span>Lagos, Nigeria</span>
+                  <span>{page.infoCard.addressLineOne}</span>
+                  <span>{page.infoCard.addressLineTwo}</span>
                 </address>
                 <div className={styles.cardContacts}>
-                  <a href="tel:+2348123456789" className={styles.cardLink}>
-                    +234 812 345 6789
+                  <a href={`tel:${page.infoCard.phone.replace(/\s/g, "")}`} className={styles.cardLink}>
+                    {page.infoCard.phone}
                   </a>
                   <a
-                    href="https://wa.me/2348123456789"
+                    href={page.infoCard.whatsappHref}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.cardLink}
                   >
-                    WhatsApp
+                    {page.infoCard.whatsappLabel}
                   </a>
                 </div>
               </div>
 
               <div className={styles.officeImgWrap}>
                 <Image
-                  src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?auto=format&fit=crop&w=800&q=80"
-                  alt="Dric Interior studio - material samples and design boards"
+                  src={page.studioImage.url}
+                  alt={page.studioImage.alt}
                   fill
                   sizes="(max-width: 900px) 100vw, 35vw"
                   className={styles.coverImage}
@@ -161,7 +150,7 @@ export function ContactExperience({ locations }: ContactExperienceProps) {
               </div>
 
               <div className={styles.locationList}>
-                {locations.map((location, index) => (
+                {page.locations.map((location, index) => (
                   <div
                     key={location.city}
                     className={styles.locationItem}
@@ -190,8 +179,8 @@ export function ContactExperience({ locations }: ContactExperienceProps) {
 
       <div className={styles.mapSection} data-reveal>
         <iframe
-          title="Dric Interior - Ikeja, Lagos"
-          src="https://www.openstreetmap.org/export/embed.html?bbox=3.31%2C6.55%2C3.42%2C6.65&layer=mapnik&marker=6.6051%2C3.3505"
+          title={page.map.title}
+          src={page.map.embedUrl}
           loading="lazy"
           className={styles.mapFrame}
         />

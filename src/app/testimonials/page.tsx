@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { JsonLd } from "@/components/site/JsonLd";
 import { buildMetadata, toAbsoluteUrl } from "@/lib/metadata";
+import { getTestimonialsPageContent } from "@/lib/page-content";
 
 import { TestimonialsExperience } from "./TestimonialsExperience";
 
@@ -12,7 +13,8 @@ export const metadata: Metadata = buildMetadata({
   pathname: "/testimonials",
 });
 
-export default function TestimonialsPage() {
+export default async function TestimonialsPage() {
+  const page = await getTestimonialsPageContent();
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -25,7 +27,7 @@ export default function TestimonialsPage() {
   return (
     <>
       <JsonLd data={structuredData} />
-      <TestimonialsExperience />
+      <TestimonialsExperience page={page} />
     </>
   );
 }

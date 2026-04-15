@@ -7,10 +7,28 @@ export type EditableImage = {
   height: number;
 };
 
+export type IconName =
+  | "facebook"
+  | "x-twitter"
+  | "instagram"
+  | "youtube"
+  | "whatsapp"
+  | "aperture"
+  | "grid"
+  | "shopping-bag"
+  | "mail"
+  | "phone"
+  | "package"
+  | "alert-circle"
+  | "refresh-cw"
+  | "message-square"
+  | "shield";
+
 export type SiteLink = {
   label: string;
   href: string;
   target?: string;
+  icon?: IconName;
 };
 
 export type FooterMenuColumn = {
@@ -75,9 +93,11 @@ export type ShopProduct = {
 export type SiteSettings = {
   siteTitle: string;
   siteDescription: string;
+  logo: EditableImage;
   topBarEmail: string;
   topBarPhone: string;
   navItems: SiteLink[];
+  actionLinks: SiteLink[];
   primaryCta: SiteLink;
   socialLinks: SiteLink[];
   footerBlurb: string;
@@ -112,6 +132,319 @@ export type ShopPage = {
     button: SiteLink;
     backgroundColor: string;
   };
+};
+
+export type AboutPageContent = {
+  hero: {
+    eyebrow: string;
+    titleLineOne: string;
+    titleLineTwo: string;
+    accentWord: string;
+    backgroundImage: EditableImage;
+  };
+  story: {
+    eyebrow: string;
+    headingLineOne: string;
+    headingLineTwo: string;
+    headingLineThree: string;
+    body: string;
+    tallImage: EditableImage;
+    squareImage: EditableImage;
+  };
+  milestones: {
+    title: string;
+    description: string;
+    items: Array<{
+      value: string;
+      label: string;
+      description: string;
+      highlighted: boolean;
+    }>;
+  };
+  values: {
+    title: string;
+    items: Array<{
+      number: string;
+      title: string;
+      description: string;
+    }>;
+  };
+  cta: {
+    title: string;
+    button: SiteLink;
+    backgroundImage: EditableImage;
+  };
+};
+
+export type ServicesPageContent = {
+  hero: {
+    eyebrow: string;
+    titlePrefix: string;
+    titleAccent: string;
+    titleSuffix: string;
+    description: string;
+    backgroundImage: EditableImage;
+    cta: SiteLink;
+  };
+  stats: Array<{
+    value: string;
+    label: string;
+  }>;
+  intro: {
+    title: string;
+    description: string;
+  };
+  services: Array<{
+    id: string;
+    number: string;
+    title: string;
+    description: string;
+    image: EditableImage;
+    wide: boolean;
+  }>;
+  process: {
+    title: string;
+    items: Array<{
+      number: string;
+      title: string;
+      description: string;
+    }>;
+  };
+  cta: {
+    titleLineOne: string;
+    titleLineTwo: string;
+    description: string;
+    primaryButton: SiteLink;
+    secondaryButton: SiteLink;
+  };
+};
+
+export type ServiceDetailPageContent = {
+  id: string;
+  number: string;
+  title: string;
+  tagline: string;
+  heroImage: EditableImage;
+  backLink: SiteLink;
+  overview: string;
+  highlightsHeading: string;
+  highlights: Array<{
+    title: string;
+    description: string;
+  }>;
+  galleryHeading: string;
+  gallery: Array<{
+    src: string;
+    alt: string;
+    caption: string;
+  }>;
+  processHeading: string;
+  processTitle: string;
+  process: Array<{
+    step: string;
+    title: string;
+    body: string;
+  }>;
+  closingStatement: string;
+  cta: {
+    title: string;
+    description: string;
+    primaryButton: SiteLink;
+    secondaryButton: SiteLink;
+  };
+};
+
+export type ProjectsPageContent = {
+  hero: {
+    eyebrow: string;
+    titleLineOne: string;
+    titleLineTwo: string;
+    description: string;
+    backgroundImage: EditableImage;
+  };
+  filters: string[];
+  projects: Array<{
+    id: string;
+    title: string;
+    excerpt: string;
+    category: "Residential" | "Commercial" | "Workplace";
+    image: string;
+    imageAlt: string;
+    size: "large" | "medium" | "small";
+    link: SiteLink;
+  }>;
+  emptyState: string;
+  cta: {
+    titleLineOne: string;
+    titleLineTwo: string;
+    titleLineThree: string;
+    button: SiteLink;
+  };
+};
+
+export type ContactPageContent = {
+  hero: {
+    eyebrow: string;
+    titleTop: string;
+    titleBottom: string;
+    description: string;
+    backgroundImage: EditableImage;
+  };
+  form: {
+    title: string;
+    successIcon: string;
+    successTitle: string;
+    successBody: string;
+    resetButtonLabel: string;
+    submitIdleLabel: string;
+    submitLoadingLabel: string;
+    fields: {
+      nameLabel: string;
+      namePlaceholder: string;
+      emailLabel: string;
+      emailPlaceholder: string;
+      projectTypeLabel: string;
+      projectTypePlaceholder: string;
+      projectTypeOptions: string[];
+      investmentRangeLabel: string;
+      investmentRangePlaceholder: string;
+      investmentRangeOptions: string[];
+      preferredDateLabel: string;
+      phoneLabel: string;
+      phonePlaceholder: string;
+      messageLabel: string;
+      messagePlaceholder: string;
+    };
+  };
+  infoCard: {
+    eyebrow: string;
+    addressLineOne: string;
+    addressLineTwo: string;
+    phone: string;
+    whatsappLabel: string;
+    whatsappHref: string;
+  };
+  studioImage: EditableImage;
+  locations: Array<{
+    city: string;
+    address: string;
+    state: string;
+    phone: string;
+    whatsapp: string;
+  }>;
+  map: {
+    title: string;
+    embedUrl: string;
+  };
+};
+
+export type PrivacyPolicyPageContent = {
+  header: {
+    eyebrow: string;
+    title: string;
+    validLabel: string;
+  };
+  introParagraphs: string[];
+  sections: Array<{
+    id: string;
+    title: string;
+    paragraphs: string[];
+    bullets?: string[];
+  }>;
+  imageBreak: {
+    image: EditableImage;
+    quote: string;
+  };
+  contact: {
+    eyebrow: string;
+    email: string;
+  };
+};
+
+export type ReturnPolicyPageContent = {
+  hero: {
+    eyebrow: string;
+    titleLineOne: string;
+    titleLineTwo: string;
+    titleLineThree: string;
+    quote: string;
+    image: EditableImage;
+  };
+  sections: Array<{
+    id: string;
+    title: string;
+    icon: IconName;
+    paragraphs: string[];
+    highlight?: string;
+    protocolTitle?: string;
+    protocolBody?: string;
+    supportLabel?: string;
+    supportValue?: string;
+    supportHref?: string;
+  }>;
+  standard: {
+    icon: IconName;
+    title: string;
+    copy: string;
+  };
+};
+
+export type TestimonialsPageContent = {
+  hero: {
+    eyebrow: string;
+    titleLineOne: string;
+    titleLineTwo: string;
+    description: string;
+  };
+  featuredTestimonial: {
+    quote: string;
+    author: string;
+    role: string;
+    image: EditableImage;
+  };
+  secondaryTestimonial: {
+    quote: string;
+    author: string;
+    role: string;
+    images: [EditableImage, EditableImage];
+  };
+  gallery: {
+    eyebrow: string;
+    title: string;
+    images: [EditableImage, EditableImage, EditableImage];
+  };
+  cta: {
+    title: string;
+    button: SiteLink;
+  };
+};
+
+export type EditableSiteContent = {
+  navbar: Pick<
+    SiteSettings,
+    | "siteTitle"
+    | "siteDescription"
+    | "logo"
+    | "topBarEmail"
+    | "topBarPhone"
+    | "navItems"
+    | "actionLinks"
+    | "primaryCta"
+    | "socialLinks"
+  >;
+  footer: Pick<
+    SiteSettings,
+    "footerBlurb" | "footerEmail" | "footerPhone" | "footerLocation" | "footerColumns" | "copyrightText"
+  >;
+  homepage: HomePage;
+  about: AboutPageContent;
+  services: ServicesPageContent;
+  serviceDetails: Record<string, ServiceDetailPageContent>;
+  projects: ProjectsPageContent;
+  contact: ContactPageContent;
+  privacyPolicy: PrivacyPolicyPageContent;
+  returnPolicy: ReturnPolicyPageContent;
+  testimonials: TestimonialsPageContent;
 };
 
 export type HomePage = {

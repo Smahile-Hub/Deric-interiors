@@ -5,21 +5,16 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 
-import type { Project } from "./page";
+import type { ProjectsPageContent } from "@/types/site";
 import styles from "./projects.module.css";
 
 type Props = {
-  projects: Project[];
+  filters: string[];
+  projects: ProjectsPageContent["projects"];
+  emptyState: string;
 };
 
-const CATEGORIES = [
-  "All Projects",
-  "Residential",
-  "Commercial",
-  "Workplace",
-] as const;
-
-export function ProjectGallery({ projects }: Props) {
+export function ProjectGallery({ filters, projects, emptyState }: Props) {
   const [active, setActive] = useState<string>("All Projects");
   const [isTransitioning, setIsTransitioning] = useState(false);
   const galleryRef = useRef<HTMLDivElement>(null);
@@ -76,7 +71,7 @@ export function ProjectGallery({ projects }: Props) {
       <section className={styles.filterSection} data-reveal>
         <div className={styles.filterShell}>
           <div className={styles.filterRow}>
-            {CATEGORIES.map((category) => (
+            {filters.map((category) => (
               <button
                 key={category}
                 onClick={() => handleFilterChange(category)}
@@ -133,8 +128,8 @@ export function ProjectGallery({ projects }: Props) {
                     <h3 className={styles.projectTitle}>{project.title}</h3>
                     <p className={styles.projectExcerpt}>{project.excerpt}</p>
                   </div>
-                  <Link href={`/blog/${project.id}`} className={styles.projectLink}>
-                    View Project <span aria-hidden="true">-&gt;</span>
+                  <Link href={project.link.href} className={styles.projectLink}>
+                    {project.link.label} <span aria-hidden="true">-&gt;</span>
                   </Link>
                 </div>
               </article>
@@ -142,7 +137,7 @@ export function ProjectGallery({ projects }: Props) {
           </div>
 
           {filtered.length === 0 ? (
-            <p className={styles.emptyState}>No projects in this category yet.</p>
+            <p className={styles.emptyState}>{emptyState}</p>
           ) : null}
         </div>
       </section>

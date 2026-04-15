@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { JsonLd } from "@/components/site/JsonLd";
 import { buildMetadata, toAbsoluteUrl } from "@/lib/metadata";
+import { getPrivacyPolicyPageContent } from "@/lib/page-content";
 
 import { PrivacyPolicyExperience } from "./PrivacyPolicyExperience";
 
@@ -12,18 +13,8 @@ export const metadata: Metadata = buildMetadata({
   pathname: "/privacy-policy",
 });
 
-const collectionParagraphs = [
-  "We collect information to provide a bespoke interior design experience. This includes personal identifiers such as your name, email address, and phone number when you inquire about our services.",
-  "Additionally, we may collect project-specific details including floor plans, preferences, and aesthetic inspirations to facilitate our design process.",
-];
-
-const usageBullets = [
-  "Communicating updates regarding your design project.",
-  "Tailoring our portfolio presentations to match your style.",
-  "Processing invoices and managing contractual agreements.",
-];
-
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
+  const page = await getPrivacyPolicyPageContent();
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -36,10 +27,7 @@ export default function PrivacyPolicyPage() {
   return (
     <>
       <JsonLd data={structuredData} />
-      <PrivacyPolicyExperience
-        collectionParagraphs={collectionParagraphs}
-        usageBullets={usageBullets}
-      />
+      <PrivacyPolicyExperience page={page} />
     </>
   );
 }
