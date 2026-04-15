@@ -5,40 +5,15 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 
+import type { ServicesPageContent } from "@/types/site";
+
 import styles from "./services.module.css";
 
-type ServiceItem = {
-  id: string;
-  number: string;
-  title: string;
-  description: string;
-  image: string;
-  imageAlt: string;
-  wide: boolean;
-};
-
-type StatItem = {
-  value: string;
-  label: string;
-};
-
-type ProcessStep = {
-  number: string;
-  title: string;
-  description: string;
-};
-
 type ServicesExperienceProps = {
-  stats: StatItem[];
-  serviceRows: ServiceItem[][];
-  processSteps: ProcessStep[];
+  page: ServicesPageContent;
 };
 
-export function ServicesExperience({
-  stats,
-  serviceRows,
-  processSteps,
-}: ServicesExperienceProps) {
+export function ServicesExperience({ page }: ServicesExperienceProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [scrollY, setScrollY] = useState(0);
 
@@ -111,8 +86,8 @@ export function ServicesExperience({
     <div ref={rootRef} className={styles.servicesRoot}>
       <section className={styles.hero} style={heroStyle}>
         <Image
-          src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1800&q=80"
-          alt="Luxury interior with warm lighting and sculptural furnishings"
+          src={page.hero.backgroundImage.url}
+          alt={page.hero.backgroundImage.alt}
           fill
           priority
           sizes="100vw"
@@ -122,27 +97,25 @@ export function ServicesExperience({
 
         <div className={styles.heroShell}>
           <p className={styles.eyebrow} data-reveal>
-            OUR EXPERTISE
+            {page.hero.eyebrow}
           </p>
           <h1 className={styles.heroTitle} data-reveal>
-            The Art of <span className={styles.heroAccent}>Spatial</span>
+            {page.hero.titlePrefix} <span className={styles.heroAccent}>{page.hero.titleAccent}</span>
             <br />
-            Curation.
+            {page.hero.titleSuffix}
           </h1>
           <p className={styles.heroDesc} data-reveal>
-            We transform architectural voids into soulful environments. Dric
-            Interior provides a full spectrum of luxury atelier services, from
-            bespoke furniture design to holistic exterior visions.
+            {page.hero.description}
           </p>
-          <Link href="/shop" className={styles.heroCta} data-reveal>
-            GO TO SHOP
+          <Link href={page.hero.cta.href} className={styles.heroCta} data-reveal>
+            {page.hero.cta.label}
           </Link>
         </div>
       </section>
 
       <section className={styles.statsSection} data-reveal>
         <div className={styles.statsShell}>
-          {stats.map((stat, index) => (
+          {page.stats.map((stat, index) => (
             <div
               key={stat.label}
               className={styles.statItem}
@@ -159,16 +132,20 @@ export function ServicesExperience({
       <section className={styles.servicesSection}>
         <div className={styles.shell}>
           <div className={styles.servicesHeader} data-reveal>
-            <h2 className={styles.sectionHeading}>Curated Design Solutions</h2>
-            <p className={styles.sectionDesc}>
-              A comprehensive suite of interior and exterior services designed to
-              elevate the residential and commercial experience to a level of
-              pure distinction.
-            </p>
+            <h2 className={styles.sectionHeading}>{page.intro.title}</h2>
+            <p className={styles.sectionDesc}>{page.intro.description}</p>
           </div>
 
           <div className={styles.servicesRows}>
-            {serviceRows.map((row, rowIndex) => (
+            {page.services.reduce<Array<ServicesPageContent["services"]>>((rows, service, index) => {
+              if (index % 2 === 0) {
+                rows.push([service]);
+                return rows;
+              }
+
+              rows[rows.length - 1].push(service);
+              return rows;
+            }, []).map((row, rowIndex) => (
               <div
                 key={`services-row-${rowIndex + 1}`}
                 className={styles.servicesRow}
@@ -199,8 +176,8 @@ export function ServicesExperience({
 
                     <div className={styles.cardMedia}>
                       <Image
-                        src={service.image}
-                        alt={service.imageAlt}
+                        src={service.image.url}
+                        alt={service.image.alt}
                         fill
                         sizes="(max-width: 900px) 100vw, 45vw"
                         className={styles.cardImg}
@@ -218,10 +195,10 @@ export function ServicesExperience({
       <section className={styles.processSection}>
         <div className={styles.shell}>
           <h2 className={styles.processTitle} data-reveal>
-            The Dric Process
+            {page.process.title}
           </h2>
           <div className={styles.processGrid}>
-            {processSteps.map((step, index) => (
+            {page.process.items.map((step, index) => (
               <div
                 key={step.number}
                 className={styles.processStep}
@@ -240,20 +217,17 @@ export function ServicesExperience({
       <section className={styles.ctaSection} data-reveal>
         <div className={styles.ctaShell}>
           <h2 className={styles.ctaTitle}>
-            Begin Your
+            {page.cta.titleLineOne}
             <br />
-            Transformation Today
+            {page.cta.titleLineTwo}
           </h2>
-          <p className={styles.ctaDesc}>
-            Ready to work with a studio that brings vision and precision to
-            every project? Let us craft a space worthy of your story.
-          </p>
+          <p className={styles.ctaDesc}>{page.cta.description}</p>
           <div className={styles.ctaActions}>
-            <Link href="/#contact" className={styles.ctaButton}>
-              Schedule Appointment
+            <Link href={page.cta.primaryButton.href} className={styles.ctaButton}>
+              {page.cta.primaryButton.label}
             </Link>
-            <Link href="/blog" className={styles.ctaLink}>
-              Our Journal -&gt;
+            <Link href={page.cta.secondaryButton.href} className={styles.ctaLink}>
+              {page.cta.secondaryButton.label}
             </Link>
           </div>
         </div>

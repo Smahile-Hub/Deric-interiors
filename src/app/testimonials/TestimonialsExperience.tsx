@@ -4,9 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
+import type { TestimonialsPageContent } from "@/types/site";
+
 import styles from "./testimonials.module.css";
 
-export function TestimonialsExperience() {
+type TestimonialsExperienceProps = {
+  page: TestimonialsPageContent;
+};
+
+export function TestimonialsExperience({ page }: TestimonialsExperienceProps) {
   const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -44,18 +50,15 @@ export function TestimonialsExperience() {
         <div className={styles.shell}>
           <div className={styles.heroHeader}>
             <div className={styles.heroLeft} data-reveal>
-              <p className={styles.eyebrow}>Client Chronicles</p>
+              <p className={styles.eyebrow}>{page.hero.eyebrow}</p>
               <h1 className={styles.heroTitle}>
-                Voices of
+                {page.hero.titleLineOne}
                 <br />
-                Satisfaction
+                {page.hero.titleLineTwo}
               </h1>
             </div>
             <div className={styles.heroRight} data-reveal>
-              <p className={styles.heroDesc}>
-                An intimate look into the experiences of those who have invited
-                the Dric Interior aesthetic into their private sanctuaries.
-              </p>
+              <p className={styles.heroDesc}>{page.hero.description}</p>
             </div>
           </div>
         </div>
@@ -68,25 +71,20 @@ export function TestimonialsExperience() {
               <span className={styles.quoteIconMark} aria-hidden="true">
                 &ldquo;
               </span>
-              <blockquote className={styles.quoteText}>
-                &ldquo;Sincerely, they are very professional, I appreciate the
-                way they used to relate with customers, it is just wonderful.
-                The job they did for me is very very neat and good. Please keep
-                it up, God bless you. I love you.&rdquo;
-              </blockquote>
+              <blockquote className={styles.quoteText}>{page.featuredTestimonial.quote}</blockquote>
               <footer className={styles.quoteAttr}>
                 <span className={styles.attrLine} aria-hidden="true" />
                 <div>
-                  <p className={styles.attrName}>Enoch Adeleke</p>
-                  <p className={styles.attrRole}>Residential Client</p>
+                  <p className={styles.attrName}>{page.featuredTestimonial.author}</p>
+                  <p className={styles.attrRole}>{page.featuredTestimonial.role}</p>
                 </div>
               </footer>
             </div>
 
             <div className={styles.t1ImageWrap} data-reveal>
               <Image
-                src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=80"
-                alt="Luxurious living room transformed by Dric Interior"
+                src={page.featuredTestimonial.image.url}
+                alt={page.featuredTestimonial.image.alt}
                 fill
                 sizes="(max-width: 900px) 100vw, 40vw"
                 className={styles.coverImage}
@@ -107,8 +105,8 @@ export function TestimonialsExperience() {
             <div className={styles.t2ImageGroup} data-reveal>
               <div className={`${styles.t2Img} ${styles.t2ImgStagger}`}>
                 <Image
-                  src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&w=600&q=80"
-                  alt="Interior detail with refined textures and ambient lighting"
+                  src={page.secondaryTestimonial.images[0].url}
+                  alt={page.secondaryTestimonial.images[0].alt}
                   fill
                   sizes="(max-width: 900px) 50vw, 22vw"
                   className={styles.coverImage}
@@ -116,8 +114,8 @@ export function TestimonialsExperience() {
               </div>
               <div className={styles.t2Img}>
                 <Image
-                  src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=600&q=80"
-                  alt="Modern workspace with clean lines and warm materials"
+                  src={page.secondaryTestimonial.images[1].url}
+                  alt={page.secondaryTestimonial.images[1].alt}
                   fill
                   sizes="(max-width: 900px) 50vw, 22vw"
                   className={styles.coverImage}
@@ -126,15 +124,10 @@ export function TestimonialsExperience() {
             </div>
 
             <div className={styles.t2Card} data-reveal>
-              <blockquote className={styles.t2Quote}>
-                &ldquo;Dric interior gives the best at affordable rate and has
-                the picture of his customer status and assumption of what the
-                customer suit and brings it to actualization. Dric brings out
-                who you are in interior decor.&rdquo;
-              </blockquote>
+              <blockquote className={styles.t2Quote}>{page.secondaryTestimonial.quote}</blockquote>
               <footer className={styles.t2Attr}>
-                <p className={styles.t2Name}>Adeola Ayodele</p>
-                <p className={styles.t2Role}>Private Client</p>
+                <p className={styles.t2Name}>{page.secondaryTestimonial.author}</p>
+                <p className={styles.t2Role}>{page.secondaryTestimonial.role}</p>
               </footer>
             </div>
           </div>
@@ -144,14 +137,14 @@ export function TestimonialsExperience() {
       <section className={styles.gallerySection}>
         <div className={styles.shell}>
           <div className={styles.galleryHeader} data-reveal>
-            <p className={styles.galleryEyebrow}>Portfolio Snapshot</p>
-            <h2 className={styles.galleryTitle}>The Canvas of Our Clients</h2>
+            <p className={styles.galleryEyebrow}>{page.gallery.eyebrow}</p>
+            <h2 className={styles.galleryTitle}>{page.gallery.title}</h2>
           </div>
           <div className={styles.galleryGrid} data-reveal>
             <div className={styles.galleryLeft}>
               <Image
-                src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1400&q=80"
-                alt="Client project with bespoke kitchen and statement cabinetry"
+                src={page.gallery.images[0].url}
+                alt={page.gallery.images[0].alt}
                 fill
                 sizes="(max-width: 900px) 100vw, 66vw"
                 className={styles.coverImage}
@@ -160,8 +153,8 @@ export function TestimonialsExperience() {
             <div className={styles.galleryRight}>
               <div className={styles.galleryRightImg}>
                 <Image
-                  src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=800&q=80"
-                  alt="Client project with dramatic bathroom and sculptural fixtures"
+                  src={page.gallery.images[1].url}
+                  alt={page.gallery.images[1].alt}
                   fill
                   sizes="(max-width: 900px) 100vw, 34vw"
                   className={styles.coverImage}
@@ -169,8 +162,8 @@ export function TestimonialsExperience() {
               </div>
               <div className={styles.galleryRightImg}>
                 <Image
-                  src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=800&q=80"
-                  alt="Client project with freestanding bath in a natural stone setting"
+                  src={page.gallery.images[2].url}
+                  alt={page.gallery.images[2].alt}
                   fill
                   sizes="(max-width: 900px) 100vw, 34vw"
                   className={styles.coverImage}
@@ -183,10 +176,10 @@ export function TestimonialsExperience() {
 
       <section className={styles.ctaSection} data-reveal>
         <div className={styles.ctaShell}>
-          <h2 className={styles.ctaTitle}>Begin Your Journey</h2>
+          <h2 className={styles.ctaTitle}>{page.cta.title}</h2>
           <span className={styles.ctaRule} aria-hidden="true" />
-          <Link href="/contact" className={styles.ctaButton}>
-            Book a Consultation
+          <Link href={page.cta.button.href} className={styles.ctaButton}>
+            {page.cta.button.label}
           </Link>
         </div>
       </section>

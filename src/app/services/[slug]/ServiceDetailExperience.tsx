@@ -65,12 +65,10 @@ export function ServiceDetailExperience({ service }: { service: ServiceData }) {
 
   return (
     <div ref={rootRef} className={styles.root}>
-
-      {/* ── Hero ── */}
       <section className={styles.hero} style={heroStyle}>
         <Image
-          src={service.heroImage}
-          alt={service.heroImageAlt}
+          src={service.heroImage.url}
+          alt={service.heroImage.alt}
           fill
           priority
           sizes="100vw"
@@ -78,11 +76,11 @@ export function ServiceDetailExperience({ service }: { service: ServiceData }) {
         />
         <div className={styles.heroOverlay} />
         <div className={styles.heroShell}>
-          <Link href="/services" className={styles.backLink} data-reveal>
-            ← All Services
+          <Link href={service.backLink.href} className={styles.backLink} data-reveal>
+            {service.backLink.label}
           </Link>
           <p className={styles.eyebrow} data-reveal>
-            {service.number} — SERVICE
+            {service.number} - SERVICE
           </p>
           <h1 className={styles.heroTitle} data-reveal>
             {service.title}
@@ -93,7 +91,6 @@ export function ServiceDetailExperience({ service }: { service: ServiceData }) {
         </div>
       </section>
 
-      {/* ── Overview ── */}
       <section className={styles.overviewSection}>
         <div className={styles.shell}>
           <div className={styles.overviewGrid}>
@@ -107,44 +104,42 @@ export function ServiceDetailExperience({ service }: { service: ServiceData }) {
         </div>
       </section>
 
-      {/* ── Highlights ── */}
       <section className={styles.highlightsSection}>
         <div className={styles.shell}>
           <p className={styles.sectionEyebrow} data-reveal>
-            WHAT WE OFFER
+            {service.highlightsHeading}
           </p>
           <div className={styles.highlightsGrid}>
-            {service.highlights.map((h, i) => (
+            {service.highlights.map((highlight, index) => (
               <div
-                key={h.title}
+                key={highlight.title}
                 className={styles.highlightCard}
                 data-reveal
-                style={{ "--stagger-index": i } as CSSProperties}
+                style={{ "--stagger-index": index } as CSSProperties}
               >
                 <span className={styles.highlightNum}>
-                  {String(i + 1).padStart(2, "0")}
+                  {String(index + 1).padStart(2, "0")}
                 </span>
-                <h3 className={styles.highlightTitle}>{h.title}</h3>
-                <p className={styles.highlightDesc}>{h.description}</p>
+                <h3 className={styles.highlightTitle}>{highlight.title}</h3>
+                <p className={styles.highlightDesc}>{highlight.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Gallery ── */}
       <section className={styles.gallerySection}>
         <div className={styles.shell}>
           <p className={styles.sectionEyebrow} data-reveal>
-            SELECTED WORK
+            {service.galleryHeading}
           </p>
           <div className={styles.galleryGrid}>
-            {service.gallery.map((item, i) => (
+            {service.gallery.map((item, index) => (
               <figure
                 key={item.src}
-                className={`${styles.galleryItem} ${i === 0 ? styles.galleryItemWide : ""}`}
+                className={`${styles.galleryItem} ${index === 0 ? styles.galleryItemWide : ""}`}
                 data-reveal
-                style={{ "--stagger-index": i } as CSSProperties}
+                style={{ "--stagger-index": index } as CSSProperties}
               >
                 <div className={styles.galleryImgWrap}>
                   <Image
@@ -164,22 +159,21 @@ export function ServiceDetailExperience({ service }: { service: ServiceData }) {
         </div>
       </section>
 
-      {/* ── Process ── */}
       <section className={styles.processSection}>
         <div className={styles.shell}>
           <p className={styles.sectionEyebrow} data-reveal>
-            OUR APPROACH
+            {service.processHeading}
           </p>
           <h2 className={styles.processTitle} data-reveal>
-            How We Deliver
+            {service.processTitle}
           </h2>
           <div className={styles.processGrid}>
-            {service.process.map((step, i) => (
+            {service.process.map((step, index) => (
               <div
                 key={step.step}
                 className={styles.processStep}
                 data-reveal
-                style={{ "--stagger-index": i } as CSSProperties}
+                style={{ "--stagger-index": index } as CSSProperties}
               >
                 <span className={styles.stepNum}>{step.step}</span>
                 <h3 className={styles.stepTitle}>{step.title}</h3>
@@ -190,7 +184,6 @@ export function ServiceDetailExperience({ service }: { service: ServiceData }) {
         </div>
       </section>
 
-      {/* ── Closing statement ── */}
       <section className={styles.closingSection}>
         <div className={styles.shell}>
           <blockquote className={styles.closingQuote} data-reveal>
@@ -199,27 +192,20 @@ export function ServiceDetailExperience({ service }: { service: ServiceData }) {
         </div>
       </section>
 
-      {/* ── CTA ── */}
       <section className={styles.ctaSection} data-reveal>
         <div className={styles.ctaShell}>
-          <h2 className={styles.ctaTitle}>
-            Ready to Begin?
-          </h2>
-          <p className={styles.ctaDesc}>
-            Let&apos;s discuss your project. Our atelier is ready to bring
-            precision and vision to your space.
-          </p>
+          <h2 className={styles.ctaTitle}>{service.cta.title}</h2>
+          <p className={styles.ctaDesc}>{service.cta.description}</p>
           <div className={styles.ctaActions}>
-            <Link href="/#contact" className={styles.ctaButton}>
-              Schedule Appointment
+            <Link href={service.cta.primaryButton.href} className={styles.ctaButton}>
+              {service.cta.primaryButton.label}
             </Link>
-            <Link href="/services" className={styles.ctaSecondary}>
-              View All Services →
+            <Link href={service.cta.secondaryButton.href} className={styles.ctaSecondary}>
+              {service.cta.secondaryButton.label}
             </Link>
           </div>
         </div>
       </section>
-
     </div>
   );
 }

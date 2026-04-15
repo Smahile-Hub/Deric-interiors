@@ -5,30 +5,15 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 
+import type { AboutPageContent } from "@/types/site";
+
 import styles from "./about.module.css";
 
-type Milestone = {
-  value: string;
-  label: string;
-  description: string;
-  highlighted: boolean;
-};
-
-type ValueCard = {
-  number: string;
-  title: string;
-  description: string;
-};
-
 type AboutExperienceProps = {
-  milestones: Milestone[];
-  values: ValueCard[];
+  page: AboutPageContent;
 };
 
-export function AboutExperience({
-  milestones,
-  values,
-}: AboutExperienceProps) {
+export function AboutExperience({ page }: AboutExperienceProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [scrollY, setScrollY] = useState(0);
 
@@ -101,8 +86,8 @@ export function AboutExperience({
     <div ref={rootRef} className={styles.aboutRoot}>
       <section className={styles.hero} style={heroStyle}>
         <Image
-          src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1800&q=80"
-          alt="Luxury interior with refined architectural detail"
+          src={page.hero.backgroundImage.url}
+          alt={page.hero.backgroundImage.alt}
           fill
           priority
           sizes="100vw"
@@ -112,12 +97,12 @@ export function AboutExperience({
 
         <div className={styles.heroShell}>
           <p className={styles.eyebrow} data-reveal>
-            The Experience You Need
+            {page.hero.eyebrow}
           </p>
           <h1 className={styles.heroTitle} data-reveal>
-            Curating Spaces
+            {page.hero.titleLineOne}
             <br />
-            with <span className={styles.heroAccent}>Intention</span>
+            with <span className={styles.heroAccent}>{page.hero.accentWord}</span>
           </h1>
           <div className={styles.heroDivider} aria-hidden="true" data-reveal />
         </div>
@@ -127,30 +112,22 @@ export function AboutExperience({
         <div className={styles.storyShell}>
           <div className={styles.storyGrid}>
             <div className={styles.storyText} data-reveal>
-              <p className={styles.storyEyebrow}>Our Story</p>
+              <p className={styles.storyEyebrow}>{page.story.eyebrow}</p>
               <h2 className={styles.storyHeading}>
-                Architectural
+                {page.story.headingLineOne}
                 <br />
-                Precision meets
+                {page.story.headingLineTwo}
                 <br />
-                Soulful Artistry.
+                {page.story.headingLineThree}
               </h2>
-              <p className={styles.storyBody}>
-                At Dric Interior, we specialise in creating luxurious, bespoke
-                interiors that reflect the unique style and personality of each
-                client. With a keen eye for detail and a passion for design
-                excellence, our team of experts transforms spaces into
-                sophisticated, functional works of art. Whether you&apos;re
-                looking to revamp a single room or redesign an entire home, we
-                deliver unparalleled quality and elegance in every project.
-              </p>
+              <p className={styles.storyBody}>{page.story.body}</p>
             </div>
 
             <div className={styles.storyImages} data-reveal>
               <div className={styles.storyImgTall}>
                 <Image
-                  src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&w=700&q=80"
-                  alt="Interior detail - textured wall and sculptural lamp"
+                  src={page.story.tallImage.url}
+                  alt={page.story.tallImage.alt}
                   fill
                   sizes="(max-width: 900px) 100vw, 30vw"
                   className={styles.coverImage}
@@ -158,8 +135,8 @@ export function AboutExperience({
               </div>
               <div className={styles.storyImgSquare}>
                 <Image
-                  src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=700&q=80"
-                  alt="Architecture - clean lines and natural materials"
+                  src={page.story.squareImage.url}
+                  alt={page.story.squareImage.alt}
                   fill
                   sizes="(max-width: 900px) 100vw, 30vw"
                   className={styles.coverImage}
@@ -173,15 +150,12 @@ export function AboutExperience({
       <section className={styles.milestonesSection}>
         <div className={styles.milestonesShell}>
           <div className={styles.milestonesHeader} data-reveal>
-            <h2 className={styles.milestonesTitle}>The Legacy of Excellence</h2>
-            <p className={styles.milestonesDesc}>
-              Our journey is marked by the trust of our clients and the enduring
-              beauty of the spaces we&apos;ve realised across the globe.
-            </p>
+            <h2 className={styles.milestonesTitle}>{page.milestones.title}</h2>
+            <p className={styles.milestonesDesc}>{page.milestones.description}</p>
           </div>
 
           <div className={styles.milestonesGrid}>
-            {milestones.map((milestone, index) => (
+            {page.milestones.items.map((milestone, index) => (
               <div
                 key={milestone.label}
                 className={`${styles.milestoneCard} ${
@@ -212,10 +186,10 @@ export function AboutExperience({
       <section className={styles.foundationsSection}>
         <div className={styles.foundationsShell}>
           <h2 className={styles.foundationsTitle} data-reveal>
-            Foundations of Luxury
+            {page.values.title}
           </h2>
           <div className={styles.valuesGrid}>
-            {values.map((value, index) => (
+            {page.values.items.map((value, index) => (
               <div
                 key={value.number}
                 className={styles.valueCard}
@@ -233,17 +207,17 @@ export function AboutExperience({
 
       <section className={styles.ctaSection} data-reveal>
         <Image
-          src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1800&q=80"
-          alt="Luxury interior"
+          src={page.cta.backgroundImage.url}
+          alt={page.cta.backgroundImage.alt}
           fill
           sizes="100vw"
           className={styles.ctaBg}
         />
         <div className={styles.ctaOverlay} />
         <div className={styles.ctaShell}>
-          <h2 className={styles.ctaTitle}>Experience Us</h2>
-          <Link href="/#contact" className={styles.ctaButton}>
-            Contact Us
+          <h2 className={styles.ctaTitle}>{page.cta.title}</h2>
+          <Link href={page.cta.button.href} className={styles.ctaButton}>
+            {page.cta.button.label}
           </Link>
         </div>
       </section>

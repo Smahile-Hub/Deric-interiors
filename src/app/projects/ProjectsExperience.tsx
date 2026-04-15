@@ -6,15 +6,16 @@ import { TransitionLink } from "@/components/site/TransitionLink";
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 
+import type { ProjectsPageContent } from "@/types/site";
+
 import { ProjectGallery } from "./ProjectGallery";
-import type { Project } from "./page";
 import styles from "./projects.module.css";
 
 type ProjectsExperienceProps = {
-  projects: Project[];
+  page: ProjectsPageContent;
 };
 
-export function ProjectsExperience({ projects }: ProjectsExperienceProps) {
+export function ProjectsExperience({ page }: ProjectsExperienceProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [scrollY, setScrollY] = useState(0);
 
@@ -87,8 +88,8 @@ export function ProjectsExperience({ projects }: ProjectsExperienceProps) {
     <div ref={rootRef} className={styles.projectsRoot}>
       <section className={styles.hero} style={heroStyle}>
         <Image
-          src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1800&q=80"
-          alt="Moody luxury interior with deep tones"
+          src={page.hero.backgroundImage.url}
+          alt={page.hero.backgroundImage.alt}
           fill
           priority
           sizes="100vw"
@@ -99,13 +100,13 @@ export function ProjectsExperience({ projects }: ProjectsExperienceProps) {
         <div className={styles.heroShell}>
           <div className={styles.eyebrowRow} data-reveal>
             <span className={styles.eyebrowLine} />
-            <p className={styles.eyebrow}>Portfolio Exhibition</p>
+            <p className={styles.eyebrow}>{page.hero.eyebrow}</p>
           </div>
           <h1
             className={styles.heroTitle}
             aria-label="Curated Portfolio"
           >
-            {["Curated", "Portfolio"].map((word, i) => (
+            {[page.hero.titleLineOne, page.hero.titleLineTwo].map((word, i) => (
               <span
                 key={word}
                 className={styles.heroTitleLine}
@@ -116,24 +117,24 @@ export function ProjectsExperience({ projects }: ProjectsExperienceProps) {
             ))}
           </h1>
           <p className={styles.heroDesc}>
-            A visual narrative of architectural transformations. From brutalist lofts to heritage manors, we craft spaces that define high-end living.
+            {page.hero.description}
           </p>
         </div>
       </section>
 
-      <ProjectGallery projects={projects} />
+      <ProjectGallery filters={page.filters} projects={page.projects} emptyState={page.emptyState} />
 
       <section className={styles.ctaSection} data-reveal>
         <div className={styles.ctaShell}>
           <h2 className={styles.ctaTitle}>
-            Ready to start your own
+            {page.cta.titleLineOne}
             <br />
-            transformation? Let&apos;s
+            {page.cta.titleLineTwo}
             <br />
-            collaborate.
+            {page.cta.titleLineThree}
           </h2>
-          <TransitionLink href="/#contact" className={styles.ctaButton}>
-            Book an Appointment
+          <TransitionLink href={page.cta.button.href} className={styles.ctaButton}>
+            {page.cta.button.label}
           </TransitionLink>
         </div>
       </section>

@@ -93,6 +93,25 @@
   transform: scaleX(1);
 }
 
+.brandLogo {
+  display: inline-flex;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 160ms ease;
+}
+
+.brandLogo:hover,
+.brandLogo:focus-visible {
+  opacity: 0.85;
+}
+
+.logoImage {
+  display: block;
+  width: auto;
+  height: 44px;
+  object-fit: contain;
+}
+
 .topBarMeta,
 .nav,
 .headerActions,
@@ -111,8 +130,9 @@
 
 .topBarMeta a {
   color: #98a0b1;
-  font-size: 0.86rem;
-  font-weight: 300;
+  font-size: 1.1rem;
+  display: inline-flex;
+  align-items: center;
 }
 
 .nav {
@@ -291,6 +311,9 @@
 }
 
 .mobileMetaLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   color: #98a0b1;
   font-size: 0.8rem;
   font-weight: 300;

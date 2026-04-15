@@ -1,11 +1,12 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 import { TransitionLink } from "./TransitionLink";
 import { useState } from "react";
 import { FaFacebookF, FaXTwitter, FaInstagram, FaYoutube, FaWhatsapp } from "react-icons/fa6";
-import { FiAperture, FiGrid, FiMenu, FiShoppingBag, FiX } from "react-icons/fi";
+import { FiAperture, FiGrid, FiMail, FiMenu, FiPhone, FiShoppingBag, FiX } from "react-icons/fi";
 
 import type { SiteSettings } from "@/types/site";
 
@@ -14,6 +15,22 @@ import styles from "./site.module.css";
 type SiteHeaderProps = {
   settings: SiteSettings;
 };
+
+const socialIconMap = {
+  facebook: FaFacebookF,
+  "x-twitter": FaXTwitter,
+  instagram: FaInstagram,
+  youtube: FaYoutube,
+  whatsapp: FaWhatsapp,
+} as const;
+
+const actionIconMap = {
+  aperture: FiAperture,
+  grid: FiGrid,
+  "shopping-bag": FiShoppingBag,
+  mail: FiMail,
+  phone: FiPhone,
+} as const;
 
 export function SiteHeader({ settings }: SiteHeaderProps) {
   const pathname = usePathname();
@@ -42,19 +59,37 @@ export function SiteHeader({ settings }: SiteHeaderProps) {
       <div className={styles.topBar}>
         <div className={styles.topBarInner}>
           <div className={styles.topBarSocials}>
-            <a href="#" aria-label="Facebook"><FaFacebookF /></a>
-            <a href="#" aria-label="X / Twitter"><FaXTwitter /></a>
-            <a href="#" aria-label="Instagram"><FaInstagram /></a>
-            <a href="#" aria-label="YouTube"><FaYoutube /></a>
-            <a href="#" aria-label="WhatsApp"><FaWhatsapp /></a>
+            {settings.socialLinks.map((item) => {
+              const Icon = item.icon ? socialIconMap[item.icon as keyof typeof socialIconMap] : null;
+
+              return (
+                <a
+                  key={`${item.label}-${item.href}`}
+                  href={item.href}
+                  target={item.target}
+                  rel={item.target === "_blank" ? "noreferrer" : undefined}
+                  aria-label={item.label}
+                >
+                  {Icon ? <Icon /> : item.label}
+                </a>
+              );
+            })}
           </div>
 
           <div className={styles.topBarMeta}>
-            <a href={`mailto:${settings.topBarEmail}`}>
-              EMAIL: {settings.topBarEmail.toUpperCase()}
+            <a
+              href={`mailto:${settings.topBarEmail}`}
+              aria-label={`Email us at ${settings.topBarEmail.toLowerCase()}`}
+              title={settings.topBarEmail.toLowerCase()}
+            >
+              <FiMail />
             </a>
-            <a href={`tel:${settings.topBarPhone.replace(/\s+/g, "")}`}>
-              CALL US: {settings.topBarPhone}
+            <a
+              href={`tel:${settings.topBarPhone.replace(/\s+/g, "")}`}
+              aria-label={`Call us at ${settings.topBarPhone}`}
+              title={settings.topBarPhone}
+            >
+              <FiPhone />
             </a>
           </div>
         </div>
@@ -64,9 +99,17 @@ export function SiteHeader({ settings }: SiteHeaderProps) {
         <div className={styles.navBarInner}>
           <TransitionLink
             href="/"
-            className={`${styles.brandWordmark} ${isHomePage ? styles.activeBrandWordmark : ""}`}
+            className={`${styles.brandLogo} ${isHomePage ? styles.activeBrandLogo : ""}`}
+            aria-label={settings.siteTitle}
           >
-            {settings.siteTitle}
+            <Image
+              src={settings.logo.url}
+              alt={settings.logo.alt}
+              width={settings.logo.width}
+              height={settings.logo.height}
+              priority
+              className={styles.logoImage}
+            />
           </TransitionLink>
 
           <nav className={styles.nav} aria-label="Primary">
@@ -86,9 +129,15 @@ export function SiteHeader({ settings }: SiteHeaderProps) {
 
           <div className={styles.headerActions}>
             <div className={styles.actionIcons} aria-label="Action links">
-              <TransitionLink href="/projects" aria-label="Projects"><FiAperture /></TransitionLink>
-              <TransitionLink href="/services" aria-label="Services"><FiGrid /></TransitionLink>
-              <TransitionLink href="/shop" aria-label="Shop"><FiShoppingBag /></TransitionLink>
+              {settings.actionLinks.map((item) => {
+                const Icon = item.icon ? actionIconMap[item.icon as keyof typeof actionIconMap] : null;
+
+                return (
+                  <TransitionLink key={`${item.label}-${item.href}`} href={item.href} aria-label={item.label}>
+                    {Icon ? <Icon /> : item.label}
+                  </TransitionLink>
+                );
+              })}
             </div>
 
             <TransitionLink href={settings.primaryCta.href} className={styles.primaryButton}>
@@ -139,17 +188,37 @@ export function SiteHeader({ settings }: SiteHeaderProps) {
 
           <div className={styles.mobileContactInfo}>
             <div className={styles.mobileSocials} aria-label="Social links">
-              <a href="#" aria-label="Facebook"><FaFacebookF /></a>
-              <a href="#" aria-label="X / Twitter"><FaXTwitter /></a>
-              <a href="#" aria-label="Instagram"><FaInstagram /></a>
-              <a href="#" aria-label="YouTube"><FaYoutube /></a>
-              <a href="#" aria-label="WhatsApp"><FaWhatsapp /></a>
+              {settings.socialLinks.map((item) => {
+                const Icon = item.icon ? socialIconMap[item.icon as keyof typeof socialIconMap] : null;
+
+                return (
+                  <a
+                    key={`mobile-${item.label}-${item.href}`}
+                    href={item.href}
+                    target={item.target}
+                    rel={item.target === "_blank" ? "noreferrer" : undefined}
+                    aria-label={item.label}
+                  >
+                    {Icon ? <Icon /> : item.label}
+                  </a>
+                );
+              })}
             </div>
-            <a href={`mailto:${settings.topBarEmail}`} className={styles.mobileMetaLink}>
-              EMAIL: {settings.topBarEmail.toLowerCase()}
+            <a
+              href={`mailto:${settings.topBarEmail}`}
+              className={styles.mobileMetaLink}
+              aria-label={`Email us at ${settings.topBarEmail.toLowerCase()}`}
+              title={settings.topBarEmail.toLowerCase()}
+            >
+              <FiMail /> {settings.topBarEmail.toLowerCase()}
             </a>
-            <a href={`tel:${settings.topBarPhone.replace(/\s+/g, "")}`} className={styles.mobileMetaLink}>
-              CALL US: {settings.topBarPhone}
+            <a
+              href={`tel:${settings.topBarPhone.replace(/\s+/g, "")}`}
+              className={styles.mobileMetaLink}
+              aria-label={`Call us at ${settings.topBarPhone}`}
+              title={settings.topBarPhone}
+            >
+              <FiPhone /> {settings.topBarPhone}
             </a>
           </div>
         </nav>

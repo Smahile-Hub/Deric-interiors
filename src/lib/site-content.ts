@@ -1,6 +1,11 @@
 import * as prismic from "@prismicio/client";
 import type { RichTextField } from "@prismicio/client";
+import { unstable_noStore as noStore } from "next/cache";
 
+import {
+  getEditableSiteContent,
+  mergeSiteSettingsWithEditableContent,
+} from "@/lib/editable-content";
 import { createPrismicClient, linkResolver } from "@/lib/prismic";
 import type {
   BlogPost,
@@ -68,6 +73,7 @@ const fallbackSettings: SiteSettings = {
   siteTitle: "Dric Interior",
   siteDescription:
     "Bespoke interior design studio creating timeless, highly tailored living spaces.",
+  logo: image("/golden-dric-logo.png", "Dric Interior logo", 280, 96),
   topBarEmail: "hello@dricinterior.com",
   topBarPhone: "+234 813 533 3616",
   navItems: [
@@ -75,11 +81,18 @@ const fallbackSettings: SiteSettings = {
     { label: "Services", href: "/services" },
     { label: "About", href: "/about" },
   ],
-  primaryCta: { label: "Consultation", href: "/contact" },
+  actionLinks: [
+    { label: "Projects", href: "/projects", icon: "aperture" },
+    { label: "Services", href: "/services", icon: "grid" },
+    { label: "Shop", href: "/shop", icon: "shopping-bag" },
+  ],
+  primaryCta: { label: "Consultation", href: "/book-appointment" },
   socialLinks: [
-    { label: "Instagram", href: "https://instagram.com" },
-    { label: "Pinterest", href: "https://pinterest.com" },
-    { label: "LinkedIn", href: "https://linkedin.com" },
+    { label: "Facebook", href: "https://facebook.com", icon: "facebook" },
+    { label: "X / Twitter", href: "https://x.com", icon: "x-twitter" },
+    { label: "Instagram", href: "https://instagram.com", icon: "instagram" },
+    { label: "YouTube", href: "https://youtube.com", icon: "youtube" },
+    { label: "WhatsApp", href: "https://wa.me/2348135333616", icon: "whatsapp" },
   ],
   footerBlurb:
     "We are about creating exceptional, smart and beautifully designed spaces which reflect your character and bring each area to life.",
@@ -297,7 +310,7 @@ const fallbackHomePage: HomePage = {
     highlightPhrase: "Innovative Spaces",
     description:
       "Ready to transform your vision into an architectural masterpiece? Let's collaborate on your next project.",
-    button: { label: "Book an Appointment", href: "/#contact" },
+    button: { label: "Book an Appointment", href: "/book-appointment" },
     backgroundColor: "#111217",
     accentColor: "#f7b51f",
   },
@@ -413,7 +426,7 @@ const fallbackShopPage: ShopPage = {
     title: "Need a tailored sourcing recommendation?",
     description:
       "Tell us the room, finish palette, and scale you are working with and we will guide you toward the right piece.",
-    button: { label: "Book a Consultation", href: "/contact" },
+    button: { label: "Book a Consultation", href: "/book-appointment" },
     backgroundColor: "#111217",
   },
 };
@@ -1027,7 +1040,7 @@ function buildLink(
   fallback: SiteLink,
 ): SiteLink {
   const href =
-    prismic.asLink(linkValue as prismic.LinkField, linkResolver) ?? fallback.href;
+    prismic.asLink(linkValue as prismic.LinkField, linkResolver) || fallback.href;
   const target =
     linkValue && typeof linkValue === "object" && "target" in linkValue
       ? typeof (linkValue as { target?: unknown }).target === "string"
@@ -1099,9 +1112,11 @@ function mapSettings(document: prismic.PrismicDocument): SiteSettings {
       data.site_description,
       fallbackSettings.siteDescription,
     ),
+    logo: fallbackSettings.logo,
     topBarEmail: readText(data.top_bar_email, fallbackSettings.topBarEmail),
     topBarPhone: readText(data.top_bar_phone, fallbackSettings.topBarPhone),
     navItems: navItems.length > 0 ? navItems : fallbackSettings.navItems,
+    actionLinks: fallbackSettings.actionLinks,
     primaryCta: buildLink(
       data.primary_cta_label,
       data.primary_cta_link,
@@ -1153,7 +1168,7 @@ function mapSettings(document: prismic.PrismicDocument): SiteSettings {
   };
 }
 
-function mapHomepage(document: prismic.PrismicDocument): HomePage {
+function _mapHomepage(document: prismic.PrismicDocument): HomePage {
   const data = document.data as PrismicData;
   const serviceItems = readGroup(data.service_items).map((item, index) => {
     const fallbackItem =
@@ -1520,32 +1535,36 @@ function sortPosts(posts: BlogPost[]) {
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {
+  noStore();
+  const editableContent = await getEditableSiteContent();
   const client = createPrismicClient();
 
   if (!client) {
-    return fallbackSettings;
+    return mergeSiteSettingsWithEditableContent(fallbackSettings, editableContent);
   }
 
   try {
     const document = await client.getSingle("site_settings");
-    return mapSettings(document);
+    return mergeSiteSettingsWithEditableContent(mapSettings(document), editableContent);
   } catch {
-    return fallbackSettings;
+    return mergeSiteSettingsWithEditableContent(fallbackSettings, editableContent);
   }
 }
 
 export async function getHomepage(): Promise<HomePage> {
+  noStore();
+  const editableContent = await getEditableSiteContent();
   const client = createPrismicClient();
 
   if (!client) {
-    return fallbackHomePage;
+    return editableContent.homepage;
   }
 
   try {
-    const document = await client.getSingle("homepage");
-    return mapHomepage(document);
+    await client.getSingle("homepage");
+    return editableContent.homepage;
   } catch {
-    return fallbackHomePage;
+    return editableContent.homepage;
   }
 }
 
